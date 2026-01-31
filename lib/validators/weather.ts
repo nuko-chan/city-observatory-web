@@ -6,7 +6,10 @@ export const WeatherHourlySchema = z.object({
   relative_humidity_2m: z.array(z.number()),
   precipitation_probability: z.array(z.number()),
   wind_speed_10m: z.array(z.number()),
+  wind_direction_10m: z.array(z.number()),
   apparent_temperature: z.array(z.number()),
+  weathercode: z.array(z.number()),
+  uv_index: z.array(z.number()),
 });
 
 export const WeatherDailySchema = z.object({
@@ -15,6 +18,9 @@ export const WeatherDailySchema = z.object({
   temperature_2m_min: z.array(z.number()),
   precipitation_sum: z.array(z.number()),
   precipitation_probability_max: z.array(z.number()),
+  sunrise: z.array(z.string()),
+  sunset: z.array(z.string()),
+  uv_index_max: z.array(z.number()),
 });
 
 export const WeatherResponseSchema = z.object({

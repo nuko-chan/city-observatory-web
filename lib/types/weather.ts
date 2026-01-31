@@ -4,7 +4,10 @@ export type WeatherHourly = {
   relative_humidity_2m: number[];
   precipitation_probability: number[];
   wind_speed_10m: number[];
+  wind_direction_10m: number[];
   apparent_temperature: number[];
+  weathercode: number[];
+  uv_index: number[];
 };
 
 export type WeatherDaily = {
@@ -13,6 +16,9 @@ export type WeatherDaily = {
   temperature_2m_min: number[];
   precipitation_sum: number[];
   precipitation_probability_max: number[];
+  sunrise: string[];
+  sunset: string[];
+  uv_index_max: number[];
 };
 
 export type WeatherResponse = {
