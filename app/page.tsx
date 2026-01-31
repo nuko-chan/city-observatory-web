@@ -10,6 +10,8 @@ import { useWeatherData } from "@/features/weather/model/use-weather-data";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 const cities: Array<Location & { label: string }> = [
   {
@@ -97,6 +99,7 @@ export default function Home() {
   const [selectedCityId, setSelectedCityId] = useState<number>(cities[0].id);
   const [weatherRange, setWeatherRange] = useState<"24h" | "7d">("24h");
   const [airRange, setAirRange] = useState<"24h" | "5d">("24h");
+  const { theme, setTheme } = useTheme();
 
   const activeCity =
     cities.find((city) => city.id === selectedCityId) ?? cities[0];
@@ -132,8 +135,20 @@ export default function Home() {
     <div className="min-h-screen bg-muted/30">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-5 lg:flex-row lg:gap-8 lg:px-6 lg:py-6">
         <aside className="w-full rounded-3xl border bg-background p-4 shadow-sm lg:w-64 lg:shrink-0 lg:p-6">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            City Observatory
+          <div className="flex items-center justify-between">
+            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              City Observatory
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark");
+              }}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border text-muted-foreground transition hover:border-foreground/40 hover:text-foreground"
+              aria-label="ダークモード切替"
+            >
+              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
           </div>
           <div className="mt-4 flex gap-2 overflow-x-auto pb-2 lg:mt-6 lg:flex-col lg:overflow-visible lg:pb-0">
             {cities.map((city) => (
