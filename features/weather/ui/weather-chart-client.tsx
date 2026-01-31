@@ -113,7 +113,7 @@ export function WeatherChart({
           </div>
         )}
       </div>
-      <div className="mt-4 h-[260px]">
+      <div className="mt-4 h-[260px] min-h-[240px] min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData}>
             <defs>
