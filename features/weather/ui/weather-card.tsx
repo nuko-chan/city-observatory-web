@@ -21,26 +21,26 @@ export function WeatherCard({
 }: WeatherCardProps) {
   if (isLoading) {
     return (
-      <div className="rounded-2xl border bg-background p-6 shadow-sm">
-        <div className="h-6 w-24 animate-pulse rounded-md bg-muted" />
-        <div className="mt-4 h-10 w-32 animate-pulse rounded-md bg-muted" />
+      <div>
+        <div className="h-6 w-24 animate-pulse rounded-md bg-muted/50" />
+        <div className="mt-4 h-10 w-32 animate-pulse rounded-md bg-muted/50" />
         <div className="mt-6 grid grid-cols-2 gap-4">
-          <div className="h-5 w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-5 w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-5 w-full animate-pulse rounded-md bg-muted" />
-          <div className="h-5 w-full animate-pulse rounded-md bg-muted" />
+          <div className="h-5 w-full animate-pulse rounded-md bg-muted/50" />
+          <div className="h-5 w-full animate-pulse rounded-md bg-muted/50" />
+          <div className="h-5 w-full animate-pulse rounded-md bg-muted/50" />
+          <div className="h-5 w-full animate-pulse rounded-md bg-muted/50" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border bg-background p-6 shadow-sm">
+    <div>
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>現在の天気</span>
         {icon}
       </div>
-      <div className="mt-3 text-4xl font-semibold">
+      <div className="mt-3 text-5xl font-bold tracking-tight">
         {Math.round(temperature)}℃
       </div>
       <div className="mt-1 text-sm text-muted-foreground">

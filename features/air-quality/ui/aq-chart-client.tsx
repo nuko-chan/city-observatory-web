@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 import {
-  Area,
-  AreaChart,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -64,13 +64,13 @@ export function AQChart({
   }, [data, dataKey, range, timeZone]);
 
   return (
-    <div className="rounded-2xl border bg-background p-6 shadow-sm">
+    <div>
       <div className="flex items-center justify-between">
         <div className="text-sm font-medium text-foreground">
           {title ?? "大気質チャート"}
         </div>
         {onRangeChange && (
-          <div className="flex items-center gap-2 rounded-full bg-muted p-1 text-xs">
+          <div className="flex items-center gap-2 rounded-full bg-muted/30 p-1 text-xs">
             {(["24h", "5d"] as const).map((value) => (
               <button
                 key={value}
@@ -79,7 +79,7 @@ export function AQChart({
                 className={cn(
                   "rounded-full px-3 py-1 font-medium transition",
                   range === value
-                    ? "bg-background text-foreground shadow"
+                    ? "bg-background/60 text-foreground shadow"
                     : "text-muted-foreground",
                 )}
               >
@@ -91,32 +91,38 @@ export function AQChart({
       </div>
       <div className="mt-4 h-[260px] min-h-[240px] min-w-0">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={chartData}>
-            <defs>
-              <linearGradient id="aqValue" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="hsl(var(--primary))"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="hsl(var(--primary))"
-                  stopOpacity={0}
-                />
-              </linearGradient>
-            </defs>
-            <XAxis dataKey="time" tickLine={false} axisLine={false} />
-            <YAxis tickLine={false} axisLine={false} width={32} />
-            <Tooltip />
-            <Area
+          <LineChart data={chartData}>
+            <XAxis
+              dataKey="time"
+              tickLine={false}
+              axisLine={false}
+              stroke="hsl(var(--muted-foreground))"
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              width={32}
+              stroke="hsl(var(--muted-foreground))"
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "hsl(var(--background))",
+                border: "1px solid hsl(var(--border))",
+                borderRadius: "8px",
+              }}
+              labelStyle={{ color: "hsl(var(--foreground))" }}
+            />
+            <Line
               type="monotone"
               dataKey="value"
-              stroke="hsl(var(--primary))"
-              fill="url(#aqValue)"
-              fillOpacity={1}
+              stroke="hsl(280, 75%, 60%)"
+              strokeWidth={3}
+              dot={false}
+              activeDot={{ r: 6, fill: "hsl(280, 75%, 60%)" }}
             />
-          </AreaChart>
+          </LineChart>
         </ResponsiveContainer>
       </div>
     </div>
