@@ -8,24 +8,13 @@ import { AQChart } from "@/features/air-quality/ui/aq-chart";
 import { MapView } from "@/features/map/ui/map-view";
 import { MapOverlayToggle } from "@/features/map/ui/map-overlay-toggle";
 import { useWeatherData } from "@/features/weather/model/use-weather-data";
+import { useWeatherSnapshot } from "@/features/weather/model/use-weather-snapshot";
 import { WeatherIcon } from "@/features/weather/ui/weather-icon";
 import { UVCard } from "@/features/weather/ui/uv-card";
 import { WindCard } from "@/features/weather/ui/wind-card";
 import { SunPathCard } from "@/features/weather/ui/sun-path-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
-import { getWeatherClassification } from "@/lib/domain/weather-classification";
-import { getUVClassification } from "@/lib/domain/uv-classification";
-import {
-  getWindDirectionLabel,
-  getWindDirectionRotation,
-} from "@/lib/domain/wind-direction";
-import {
-  getSunPhase,
-  getSunPhaseBackground,
-  getSunPhaseLabel,
-  getSunProgress,
-} from "@/lib/domain/sun-path";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
 
@@ -86,23 +75,6 @@ const cities: Array<Location & { label: string }> = [
   },
 ];
 
-function findClosestIndex(times: string[]) {
-  const now = Date.now();
-  let bestIndex = 0;
-  let bestDiff = Number.POSITIVE_INFINITY;
-
-  times.forEach((time, index) => {
-    const value = new Date(time).getTime();
-    const diff = Math.abs(value - now);
-    if (diff < bestDiff) {
-      bestDiff = diff;
-      bestIndex = index;
-    }
-  });
-
-  return bestIndex;
-}
-
 function formatLocalTime(timeZone: string) {
   return new Intl.DateTimeFormat("ja-JP", {
     timeZone,
@@ -133,56 +105,19 @@ export default function Home() {
 
   const weatherQuery = useWeatherData(activeCity, "24h");
   const airQuery = useAirQualityData(activeCity, "24h");
-
-  const weatherSnapshot = useMemo(() => {
-    if (!weatherQuery.data?.hourly) return undefined;
-    const index = findClosestIndex(weatherQuery.data.hourly.time);
-    return {
-      temperature: weatherQuery.data.hourly.temperature_2m[index],
-      apparentTemperature: weatherQuery.data.hourly.apparent_temperature[index],
-      humidity: weatherQuery.data.hourly.relative_humidity_2m[index],
-      windSpeed: weatherQuery.data.hourly.wind_speed_10m[index],
-      windDirection: weatherQuery.data.hourly.wind_direction_10m[index],
-      weathercode: weatherQuery.data.hourly.weathercode[index],
-      uvIndex: weatherQuery.data.hourly.uv_index[index],
-      precipitationProbability:
-        weatherQuery.data.hourly.precipitation_probability[index],
-    };
-  }, [weatherQuery.data]);
+  const weatherView = useWeatherSnapshot({
+    hourly: weatherQuery.data?.hourly,
+    daily: weatherQuery.data?.daily,
+    timeZone: weatherQuery.data?.timezone ?? activeCity.timezone,
+  });
 
   const airSeries = useMemo(
     () => getAirQualitySeries(airQuery.data?.hourly, "24h"),
     [airQuery.data],
   );
 
-  const weatherClassification = weatherSnapshot
-    ? getWeatherClassification(weatherSnapshot.weathercode)
-    : undefined;
-  const uvClassification = weatherSnapshot
-    ? getUVClassification(weatherSnapshot.uvIndex)
-    : undefined;
-  const uvIndexMax = weatherQuery.data?.daily?.uv_index_max?.[0];
-  const windDirectionLabel = weatherSnapshot
-    ? getWindDirectionLabel(weatherSnapshot.windDirection)
-    : "不明";
-  const windDirectionRotation = weatherSnapshot
-    ? getWindDirectionRotation(weatherSnapshot.windDirection)
-    : 0;
-  const sunriseAt = weatherQuery.data?.daily?.sunrise?.[0];
-  const sunsetAt = weatherQuery.data?.daily?.sunset?.[0];
-  const sunPhase =
-    sunriseAt && sunsetAt
-      ? getSunPhase(new Date(), new Date(sunriseAt), new Date(sunsetAt))
-      : "night";
-  const sunProgress =
-    sunriseAt && sunsetAt
-      ? getSunProgress(new Date(), new Date(sunriseAt), new Date(sunsetAt))
-      : 0;
-  const sunPhaseLabel = getSunPhaseLabel(sunPhase);
-  const sunPhaseBackground = getSunPhaseBackground(sunPhase);
-
   // 背景色をデータから生成
-  const bgColor = temperatureToColor(weatherSnapshot?.temperature ?? 20);
+  const bgColor = temperatureToColor(weatherView?.snapshot.temperature ?? 20);
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* データドリブンな背景グラデーション */}
@@ -259,23 +194,25 @@ export default function Home() {
             {/* 天気カード */}
             <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
               <WeatherCard
-                temperature={weatherSnapshot?.temperature ?? 0}
-                apparentTemperature={weatherSnapshot?.apparentTemperature ?? 0}
-                humidity={weatherSnapshot?.humidity ?? 0}
-                windSpeed={weatherSnapshot?.windSpeed ?? 0}
+                temperature={weatherView?.snapshot.temperature ?? 0}
+                apparentTemperature={
+                  weatherView?.snapshot.apparentTemperature ?? 0
+                }
+                humidity={weatherView?.snapshot.humidity ?? 0}
+                windSpeed={weatherView?.snapshot.windSpeed ?? 0}
                 precipitationProbability={
-                  weatherSnapshot?.precipitationProbability ?? 0
+                  weatherView?.snapshot.precipitationProbability ?? 0
                 }
                 icon={
-                  weatherClassification ? (
+                  weatherView?.weatherClassification ? (
                     <WeatherIcon
-                      iconKey={weatherClassification.iconKey}
-                      label={weatherClassification.label}
+                      iconKey={weatherView.weatherClassification.iconKey}
+                      label={weatherView.weatherClassification.label}
                       className="h-5 w-5"
                     />
                   ) : undefined
                 }
-                conditionLabel={weatherClassification?.label}
+                conditionLabel={weatherView?.weatherClassification.label}
                 isLoading={weatherQuery.isLoading}
               />
             </div>
@@ -283,10 +220,10 @@ export default function Home() {
             {/* UV指数 */}
             <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
               <UVCard
-                uvIndex={weatherSnapshot?.uvIndex ?? 0}
-                uvIndexMax={uvIndexMax}
-                label={uvClassification?.label ?? "不明"}
-                color={uvClassification?.color ?? "hsl(0, 0%, 60%)"}
+                uvIndex={weatherView?.snapshot.uvIndex ?? 0}
+                uvIndexMax={weatherView?.uvIndexMax}
+                label={weatherView?.uvClassification.label ?? "不明"}
+                color={weatherView?.uvClassification.color ?? "hsl(0, 0%, 60%)"}
                 isLoading={weatherQuery.isLoading}
               />
             </div>
@@ -294,29 +231,35 @@ export default function Home() {
             {/* 風向き・風速 */}
             <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
               <WindCard
-                windSpeed={weatherSnapshot?.windSpeed ?? 0}
-                windDirection={windDirectionRotation}
-                directionLabel={windDirectionLabel}
+                windSpeed={weatherView?.snapshot.windSpeed ?? 0}
+                windDirection={weatherView?.windDirectionRotation ?? 0}
+                directionLabel={weatherView?.windDirectionLabel ?? "不明"}
                 isLoading={weatherQuery.isLoading}
               />
             </div>
 
             {/* 日の出/日の入り */}
-            {sunriseAt && sunsetAt ? (
+            {weatherView?.sunriseAt && weatherView.sunsetAt ? (
               <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
                 <SunPathCard
-                  sunrise={new Date(sunriseAt).toLocaleTimeString("ja-JP", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  sunset={new Date(sunsetAt).toLocaleTimeString("ja-JP", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  sunrise={new Date(weatherView.sunriseAt).toLocaleTimeString(
+                    "ja-JP",
+                    {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  )}
+                  sunset={new Date(weatherView.sunsetAt).toLocaleTimeString(
+                    "ja-JP",
+                    {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    },
+                  )}
                   nowLabel={formatLocalTime(activeCity.timezone)}
-                  phaseLabel={sunPhaseLabel}
-                  progress={sunProgress}
-                  background={sunPhaseBackground}
+                  phaseLabel={weatherView.sunPhaseLabel}
+                  progress={weatherView.sunProgress}
+                  background={weatherView.sunPhaseBackground}
                   isLoading={weatherQuery.isLoading}
                 />
               </div>
