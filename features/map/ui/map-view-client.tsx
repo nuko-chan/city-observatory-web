@@ -27,7 +27,7 @@ export function MapViewClient({
       style: env.NEXT_PUBLIC_MAP_STYLE_LIGHT,
       center,
       zoom,
-      attributionControl: true,
+      attributionControl: { compact: true },
     });
 
     mapRef.current.addControl(new maplibregl.NavigationControl(), "top-right");
