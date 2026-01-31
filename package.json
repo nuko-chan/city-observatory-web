@@ -11,6 +11,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --check",
     "format:fix": "prettier . --write",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
