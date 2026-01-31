@@ -9,10 +9,15 @@ import { MapView } from "@/features/map/ui/map-view";
 import { useWeatherData } from "@/features/weather/model/use-weather-data";
 import { WeatherIcon } from "@/features/weather/ui/weather-icon";
 import { UVCard } from "@/features/weather/ui/uv-card";
+import { WindCard } from "@/features/weather/ui/wind-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { getWeatherClassification } from "@/lib/domain/weather-classification";
 import { getUVClassification } from "@/lib/domain/uv-classification";
+import {
+  getWindDirectionLabel,
+  getWindDirectionRotation,
+} from "@/lib/domain/wind-direction";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
 
@@ -139,6 +144,7 @@ export default function ComparePage() {
       apparentTemperature: leftWeather.data.hourly.apparent_temperature[index],
       humidity: leftWeather.data.hourly.relative_humidity_2m[index],
       windSpeed: leftWeather.data.hourly.wind_speed_10m[index],
+      windDirection: leftWeather.data.hourly.wind_direction_10m[index],
       weathercode: leftWeather.data.hourly.weathercode[index],
       uvIndex: leftWeather.data.hourly.uv_index[index],
       precipitationProbability:
@@ -154,6 +160,7 @@ export default function ComparePage() {
       apparentTemperature: rightWeather.data.hourly.apparent_temperature[index],
       humidity: rightWeather.data.hourly.relative_humidity_2m[index],
       windSpeed: rightWeather.data.hourly.wind_speed_10m[index],
+      windDirection: rightWeather.data.hourly.wind_direction_10m[index],
       weathercode: rightWeather.data.hourly.weathercode[index],
       uvIndex: rightWeather.data.hourly.uv_index[index],
       precipitationProbability:
@@ -175,6 +182,18 @@ export default function ComparePage() {
     : undefined;
   const leftUvIndexMax = leftWeather.data?.daily?.uv_index_max?.[0];
   const rightUvIndexMax = rightWeather.data?.daily?.uv_index_max?.[0];
+  const leftWindDirectionLabel = leftSnapshot
+    ? getWindDirectionLabel(leftSnapshot.windDirection)
+    : "不明";
+  const rightWindDirectionLabel = rightSnapshot
+    ? getWindDirectionLabel(rightSnapshot.windDirection)
+    : "不明";
+  const leftWindDirectionRotation = leftSnapshot
+    ? getWindDirectionRotation(leftSnapshot.windDirection)
+    : 0;
+  const rightWindDirectionRotation = rightSnapshot
+    ? getWindDirectionRotation(rightSnapshot.windDirection)
+    : 0;
 
   // 背景色をデータから生成
   const leftBgColor = temperatureToColor(leftSnapshot?.temperature ?? 20);
@@ -363,6 +382,16 @@ export default function ComparePage() {
               />
             </div>
 
+            {/* 風向き・風速 */}
+            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <WindCard
+                windSpeed={leftSnapshot?.windSpeed ?? 0}
+                windDirection={leftWindDirectionRotation}
+                directionLabel={leftWindDirectionLabel}
+                isLoading={leftWeather.isLoading}
+              />
+            </div>
+
             {/* 気温の推移 */}
             {leftWeather.data?.hourly ? (
               <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
@@ -436,6 +465,16 @@ export default function ComparePage() {
                 uvIndexMax={rightUvIndexMax}
                 label={rightUvClassification?.label ?? "不明"}
                 color={rightUvClassification?.color ?? "hsl(0, 0%, 60%)"}
+                isLoading={rightWeather.isLoading}
+              />
+            </div>
+
+            {/* 風向き・風速 */}
+            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <WindCard
+                windSpeed={rightSnapshot?.windSpeed ?? 0}
+                windDirection={rightWindDirectionRotation}
+                directionLabel={rightWindDirectionLabel}
                 isLoading={rightWeather.isLoading}
               />
             </div>

@@ -10,10 +10,15 @@ import { MapOverlayToggle } from "@/features/map/ui/map-overlay-toggle";
 import { useWeatherData } from "@/features/weather/model/use-weather-data";
 import { WeatherIcon } from "@/features/weather/ui/weather-icon";
 import { UVCard } from "@/features/weather/ui/uv-card";
+import { WindCard } from "@/features/weather/ui/wind-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { getWeatherClassification } from "@/lib/domain/weather-classification";
 import { getUVClassification } from "@/lib/domain/uv-classification";
+import {
+  getWindDirectionLabel,
+  getWindDirectionRotation,
+} from "@/lib/domain/wind-direction";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
 
@@ -130,6 +135,7 @@ export default function Home() {
       apparentTemperature: weatherQuery.data.hourly.apparent_temperature[index],
       humidity: weatherQuery.data.hourly.relative_humidity_2m[index],
       windSpeed: weatherQuery.data.hourly.wind_speed_10m[index],
+      windDirection: weatherQuery.data.hourly.wind_direction_10m[index],
       weathercode: weatherQuery.data.hourly.weathercode[index],
       uvIndex: weatherQuery.data.hourly.uv_index[index],
       precipitationProbability:
@@ -149,6 +155,12 @@ export default function Home() {
     ? getUVClassification(weatherSnapshot.uvIndex)
     : undefined;
   const uvIndexMax = weatherQuery.data?.daily?.uv_index_max?.[0];
+  const windDirectionLabel = weatherSnapshot
+    ? getWindDirectionLabel(weatherSnapshot.windDirection)
+    : "不明";
+  const windDirectionRotation = weatherSnapshot
+    ? getWindDirectionRotation(weatherSnapshot.windDirection)
+    : 0;
 
   // 背景色をデータから生成
   const bgColor = temperatureToColor(weatherSnapshot?.temperature ?? 20);
@@ -256,6 +268,16 @@ export default function Home() {
                 uvIndexMax={uvIndexMax}
                 label={uvClassification?.label ?? "不明"}
                 color={uvClassification?.color ?? "hsl(0, 0%, 60%)"}
+                isLoading={weatherQuery.isLoading}
+              />
+            </div>
+
+            {/* 風向き・風速 */}
+            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <WindCard
+                windSpeed={weatherSnapshot?.windSpeed ?? 0}
+                windDirection={windDirectionRotation}
+                directionLabel={windDirectionLabel}
                 isLoading={weatherQuery.isLoading}
               />
             </div>
