@@ -53,6 +53,15 @@ flowchart TB
 - `docs/technical-specifications.md` 技術仕様
 - `docs/coding-guidelines.md` コーディング規約
 
+## 開発フロー（Issue駆動）
+
+- ブランチ命名: `issue-<number>-<slug>`（例: `issue-10-map-view`）
+- PRタイトル: `Issue #<number>: <短いタイトル>`
+- PR本文: `Closes #<number>`
+- 推奨コマンド:
+  - `gh issue develop <number> -b issue-<number>-<slug>`
+  - `gh pr create -t "Issue #<number>: <title>" -b "Closes #<number>"`
+
 ## 開発コマンド
 
 ```bash
