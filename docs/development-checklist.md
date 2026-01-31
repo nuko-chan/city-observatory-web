@@ -159,6 +159,9 @@ git push -u origin main
   # MapTiler API Key
   NEXT_PUBLIC_MAPTILER_KEY=
 
+  # OpenWeather API Key
+  NEXT_PUBLIC_OPENWEATHER_KEY=
+
   # Map Styles
   NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
   NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
@@ -177,6 +180,7 @@ git push -u origin main
 
   ```bash
   NEXT_PUBLIC_MAPTILER_KEY=your_dev_key_here
+  NEXT_PUBLIC_OPENWEATHER_KEY=your_dev_key_here
   NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
   NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
   NEXT_PUBLIC_DEFAULT_CITY=tokyo
@@ -187,6 +191,7 @@ git push -u origin main
 
   ```bash
   NEXT_PUBLIC_MAPTILER_KEY=your_prod_key_here
+  NEXT_PUBLIC_OPENWEATHER_KEY=your_prod_key_here
   NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
   NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
   NEXT_PUBLIC_DEFAULT_CITY=tokyo
@@ -204,6 +209,7 @@ git push -u origin main
 
   const envSchema = z.object({
     NEXT_PUBLIC_MAPTILER_KEY: z.string().min(1),
+    NEXT_PUBLIC_OPENWEATHER_KEY: z.string().min(1),
     NEXT_PUBLIC_MAP_STYLE_LIGHT: z.string().url().optional(),
     NEXT_PUBLIC_MAP_STYLE_DARK: z.string().url().optional(),
     NEXT_PUBLIC_DEFAULT_CITY: z.string().default("tokyo"),
@@ -215,6 +221,7 @@ git push -u origin main
 
   export const env = envSchema.parse({
     NEXT_PUBLIC_MAPTILER_KEY: process.env.NEXT_PUBLIC_MAPTILER_KEY,
+    NEXT_PUBLIC_OPENWEATHER_KEY: process.env.NEXT_PUBLIC_OPENWEATHER_KEY,
     NEXT_PUBLIC_MAP_STYLE_LIGHT: process.env.NEXT_PUBLIC_MAP_STYLE_LIGHT,
     NEXT_PUBLIC_MAP_STYLE_DARK: process.env.NEXT_PUBLIC_MAP_STYLE_DARK,
     NEXT_PUBLIC_DEFAULT_CITY: process.env.NEXT_PUBLIC_DEFAULT_CITY,
@@ -227,9 +234,11 @@ git push -u origin main
 - [ ] Vercel プロジェクト作成（GitHub リポジトリと連携）
 - [ ] **Preview 環境** の環境変数を設定
   - `NEXT_PUBLIC_MAPTILER_KEY`: DEV キー
+  - `NEXT_PUBLIC_OPENWEATHER_KEY`: DEV キー
   - その他の環境変数も同様に設定
 - [ ] **Production 環境** の環境変数を設定
   - `NEXT_PUBLIC_MAPTILER_KEY`: PROD キー
+  - `NEXT_PUBLIC_OPENWEATHER_KEY`: PROD キー
   - その他の環境変数も同様に設定
 - [ ] Vercel で `vercel env pull` を実行してローカルに同期（任意）
 

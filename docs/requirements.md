@@ -387,6 +387,12 @@ type TimeSlot = {
 - **レート制限**: Free プラン - 100,000 タイル/月
 - **保護**: Allowed HTTP origins 設定必須
 
+### 7.5 OpenWeatherMap Precipitation Tiles
+
+- **用途**: 降水レイヤーの取得
+- **認証**: API キー必要（NEXT_PUBLIC_OPENWEATHER_KEY）
+- **レート制限**: プランに依存（開発用途は無料枠想定）
+
 ---
 
 ## 8. 成功指標（KPI）
