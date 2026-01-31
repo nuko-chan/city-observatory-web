@@ -14,7 +14,11 @@ import { UVCard } from "@/features/weather/ui/uv-card";
 import { WindCard } from "@/features/weather/ui/wind-card";
 import { SunPathCard } from "@/features/weather/ui/sun-path-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
+import { ComfortSummaryCard } from "@/features/derived-metrics/ui/comfort-summary-card";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
+import { getAirQualitySnapshot } from "@/lib/domain/air-quality-snapshot";
+import { calculateComfortScore } from "@/lib/domain/comfort-score";
+import { calculateOutdoorRisk } from "@/lib/domain/outdoor-risk";
 import { cities } from "@/lib/constants/cities";
 import { cn } from "@/lib/utils";
 import { formatLocalTime, temperatureToColor } from "@/lib/utils/formatting";
@@ -26,6 +30,7 @@ export default function Home() {
   const [mapOverlay, setMapOverlay] = useState<"none" | "precipitation">(
     "none",
   );
+  const [nowMs] = useState(() => Date.now());
 
   const activeCity =
     cities.find((city) => city.id === selectedCityId) ?? cities[0];
@@ -37,6 +42,25 @@ export default function Home() {
     daily: weatherQuery.data?.daily,
     timeZone: weatherQuery.data?.timezone ?? activeCity.timezone,
     utcOffsetSeconds: weatherQuery.data?.utc_offset_seconds,
+  });
+  const airSnapshot = getAirQualitySnapshot(
+    airQuery.data?.hourly,
+    nowMs,
+    airQuery.data?.utc_offset_seconds,
+  );
+  const comfortScore = calculateComfortScore({
+    temperature: weatherView?.snapshot.temperature ?? 0,
+    humidity: weatherView?.snapshot.humidity ?? 0,
+    windSpeed: weatherView?.snapshot.windSpeed ?? 0,
+    precipitationProbability:
+      weatherView?.snapshot.precipitationProbability ?? 0,
+    pm25: airSnapshot?.pm25 ?? 0,
+  });
+  const outdoorRiskLevel = calculateOutdoorRisk({
+    precipitationProbability:
+      weatherView?.snapshot.precipitationProbability ?? 0,
+    windSpeed: weatherView?.snapshot.windSpeed ?? 0,
+    pm25: airSnapshot?.pm25 ?? 0,
   });
 
   const airSeries = useMemo(
@@ -197,6 +221,16 @@ export default function Home() {
                 label={weatherView?.uvClassification.label ?? "不明"}
                 color={weatherView?.uvClassification.color ?? "hsl(0, 0%, 60%)"}
                 isLoading={weatherQuery.isLoading}
+              />
+            </div>
+
+            {/* 快適度サマリー */}
+            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <ComfortSummaryCard
+                comfortScore={comfortScore}
+                outdoorRiskLevel={outdoorRiskLevel}
+                pm25={airSnapshot?.pm25 ?? 0}
+                isLoading={weatherQuery.isLoading || airQuery.isLoading}
               />
             </div>
 
