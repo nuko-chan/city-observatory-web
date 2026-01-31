@@ -183,6 +183,16 @@ git push -u origin main
   NEXT_PUBLIC_FEATURE_MAP=true
   ```
 
+- [ ] `.env.production` 作成（本番用の値）
+
+  ```bash
+  NEXT_PUBLIC_MAPTILER_KEY=your_prod_key_here
+  NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
+  NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
+  NEXT_PUBLIC_DEFAULT_CITY=tokyo
+  NEXT_PUBLIC_FEATURE_MAP=true
+  ```
+
 - [ ] `.gitignore` に `.env.local` が含まれていることを再確認
 
 ### 2-2. 環境変数の型定義

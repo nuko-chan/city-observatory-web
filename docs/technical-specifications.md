@@ -310,6 +310,23 @@ NEXT_PUBLIC_FEATURE_MAP=true
 NEXT_PUBLIC_SENTRY_DSN=
 ```
 
+#### .env.production（本番用・ローカル検証向け）
+
+```bash
+# MapTiler API Key（PROD）
+NEXT_PUBLIC_MAPTILER_KEY=your_prod_key_here
+
+# Map Styles
+NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
+NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
+
+# Defaults
+NEXT_PUBLIC_DEFAULT_CITY=tokyo
+
+# Feature Flags
+NEXT_PUBLIC_FEATURE_MAP=true
+```
+
 ### 4.2 Vercel 環境変数設定
 
 **Preview 環境**:
