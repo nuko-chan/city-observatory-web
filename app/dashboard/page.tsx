@@ -107,26 +107,27 @@ export default function DashboardPage() {
               }
               isLoading={weatherQuery.isLoading}
             />
-            {weatherQuery.data?.[
-              weatherRange === "24h" ? "hourly" : "daily"
-            ] ? (
+            {weatherQuery.data?.hourly && weatherRange === "24h" && (
               <WeatherChart
                 title="気温の推移"
-                range={weatherRange}
-                data={
-                  weatherRange === "24h"
-                    ? weatherQuery.data.hourly!
-                    : weatherQuery.data.daily!
-                }
-                dataKey={
-                  weatherRange === "24h"
-                    ? "temperature_2m"
-                    : "temperature_2m_max"
-                }
+                range="24h"
+                data={weatherQuery.data.hourly}
+                dataKey="temperature_2m"
                 timeZone={weatherQuery.data.timezone}
                 onRangeChange={setWeatherRange}
               />
-            ) : (
+            )}
+            {weatherQuery.data?.daily && weatherRange === "7d" && (
+              <WeatherChart
+                title="気温の推移"
+                range="7d"
+                data={weatherQuery.data.daily}
+                dataKey="temperature_2m_max"
+                timeZone={weatherQuery.data.timezone}
+                onRangeChange={setWeatherRange}
+              />
+            )}
+            {!weatherQuery.data?.hourly && !weatherQuery.data?.daily && (
               <div className="h-[320px] w-full animate-pulse rounded-2xl border bg-muted/30" />
             )}
 
