@@ -12,10 +12,21 @@ export type WeatherCondition =
   | "thunderstorm"
   | "unknown";
 
+export type WeatherIconKey =
+  | "sun"
+  | "cloud-sun"
+  | "cloud"
+  | "cloud-fog"
+  | "cloud-drizzle"
+  | "cloud-rain"
+  | "cloud-snow"
+  | "cloud-lightning"
+  | "cloud-alert";
+
 type WeatherClassification = {
   condition: WeatherCondition;
   label: string;
-  iconKey: string;
+  iconKey: WeatherIconKey;
   background: string;
 };
 
@@ -34,7 +45,7 @@ const weatherLabels: Record<WeatherCondition, string> = {
   unknown: "不明",
 };
 
-const weatherIcons: Record<WeatherCondition, string> = {
+const weatherIcons: Record<WeatherCondition, WeatherIconKey> = {
   clear: "sun",
   "mostly-clear": "sun",
   "partly-cloudy": "cloud-sun",

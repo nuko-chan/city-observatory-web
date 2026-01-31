@@ -7,6 +7,7 @@ type WeatherCardProps = {
   windSpeed: number;
   precipitationProbability: number;
   icon?: ReactNode;
+  conditionLabel?: string;
   isLoading?: boolean;
 };
 
@@ -17,6 +18,7 @@ export function WeatherCard({
   windSpeed,
   precipitationProbability,
   icon,
+  conditionLabel,
   isLoading = false,
 }: WeatherCardProps) {
   if (isLoading) {
@@ -37,7 +39,14 @@ export function WeatherCard({
   return (
     <div>
       <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>現在の天気</span>
+        <div className="flex items-center gap-2">
+          <span>現在の天気</span>
+          {conditionLabel ? (
+            <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs text-foreground">
+              {conditionLabel}
+            </span>
+          ) : null}
+        </div>
         {icon}
       </div>
       <div className="mt-3 text-5xl font-bold tracking-tight">

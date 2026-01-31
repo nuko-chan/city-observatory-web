@@ -7,8 +7,13 @@ import { WeatherChart } from "@/features/weather/ui/weather-chart";
 import { AQChart } from "@/features/air-quality/ui/aq-chart";
 import { MapView } from "@/features/map/ui/map-view";
 import { useWeatherData } from "@/features/weather/model/use-weather-data";
+import { WeatherIcon } from "@/features/weather/ui/weather-icon";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
+import {
+  getWeatherBackground,
+  getWeatherClassification,
+} from "@/lib/domain/weather-classification";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
 
@@ -135,6 +140,7 @@ export default function ComparePage() {
       apparentTemperature: leftWeather.data.hourly.apparent_temperature[index],
       humidity: leftWeather.data.hourly.relative_humidity_2m[index],
       windSpeed: leftWeather.data.hourly.wind_speed_10m[index],
+      weathercode: leftWeather.data.hourly.weathercode[index],
       precipitationProbability:
         leftWeather.data.hourly.precipitation_probability[index],
     };
@@ -148,14 +154,28 @@ export default function ComparePage() {
       apparentTemperature: rightWeather.data.hourly.apparent_temperature[index],
       humidity: rightWeather.data.hourly.relative_humidity_2m[index],
       windSpeed: rightWeather.data.hourly.wind_speed_10m[index],
+      weathercode: rightWeather.data.hourly.weathercode[index],
       precipitationProbability:
         rightWeather.data.hourly.precipitation_probability[index],
     };
   }, [rightWeather.data]);
 
+  const leftWeatherClassification = leftSnapshot
+    ? getWeatherClassification(leftSnapshot.weathercode)
+    : undefined;
+  const rightWeatherClassification = rightSnapshot
+    ? getWeatherClassification(rightSnapshot.weathercode)
+    : undefined;
+
   // 背景色をデータから生成
   const leftBgColor = temperatureToColor(leftSnapshot?.temperature ?? 20);
   const rightBgColor = temperatureToColor(rightSnapshot?.temperature ?? 20);
+  const leftWeatherBackground = leftSnapshot
+    ? getWeatherBackground(leftSnapshot.weathercode)
+    : undefined;
+  const rightWeatherBackground = rightSnapshot
+    ? getWeatherBackground(rightSnapshot.weathercode)
+    : undefined;
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -165,14 +185,18 @@ export default function ComparePage() {
         <div
           className="absolute left-0 top-0 h-full w-1/2 transition-all duration-1000"
           style={{
-            background: `radial-gradient(ellipse at 20% 50%, hsl(${leftBgColor}, 40%) 0%, hsl(${leftBgColor}, 20%) 40%, transparent 70%)`,
+            background: leftWeatherBackground
+              ? `${leftWeatherBackground}, radial-gradient(ellipse at 20% 50%, hsl(${leftBgColor}, 40%) 0%, hsl(${leftBgColor}, 20%) 40%, transparent 70%)`
+              : `radial-gradient(ellipse at 20% 50%, hsl(${leftBgColor}, 40%) 0%, hsl(${leftBgColor}, 20%) 40%, transparent 70%)`,
           }}
         />
         {/* 右側のグラデーション */}
         <div
           className="absolute right-0 top-0 h-full w-1/2 transition-all duration-1000"
           style={{
-            background: `radial-gradient(ellipse at 80% 50%, hsl(${rightBgColor}, 40%) 0%, hsl(${rightBgColor}, 20%) 40%, transparent 70%)`,
+            background: rightWeatherBackground
+              ? `${rightWeatherBackground}, radial-gradient(ellipse at 80% 50%, hsl(${rightBgColor}, 40%) 0%, hsl(${rightBgColor}, 20%) 40%, transparent 70%)`
+              : `radial-gradient(ellipse at 80% 50%, hsl(${rightBgColor}, 40%) 0%, hsl(${rightBgColor}, 20%) 40%, transparent 70%)`,
           }}
         />
         {/* 中央のブレンド */}
@@ -316,6 +340,16 @@ export default function ComparePage() {
                 precipitationProbability={
                   leftSnapshot?.precipitationProbability ?? 0
                 }
+                icon={
+                  leftWeatherClassification ? (
+                    <WeatherIcon
+                      iconKey={leftWeatherClassification.iconKey}
+                      label={leftWeatherClassification.label}
+                      className="h-5 w-5"
+                    />
+                  ) : undefined
+                }
+                conditionLabel={leftWeatherClassification?.label}
                 isLoading={leftWeather.isLoading}
               />
             </div>
@@ -372,6 +406,16 @@ export default function ComparePage() {
                 precipitationProbability={
                   rightSnapshot?.precipitationProbability ?? 0
                 }
+                icon={
+                  rightWeatherClassification ? (
+                    <WeatherIcon
+                      iconKey={rightWeatherClassification.iconKey}
+                      label={rightWeatherClassification.label}
+                      className="h-5 w-5"
+                    />
+                  ) : undefined
+                }
+                conditionLabel={rightWeatherClassification?.label}
                 isLoading={rightWeather.isLoading}
               />
             </div>
