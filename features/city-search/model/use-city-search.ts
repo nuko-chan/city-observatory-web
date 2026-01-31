@@ -10,6 +10,6 @@ export function useCitySearch(query: string) {
     queryFn: () => searchCities(debouncedQuery),
     enabled: debouncedQuery.trim().length >= 2,
     staleTime: 30 * 60 * 1000,
-    cacheTime: 60 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
   });
 }
