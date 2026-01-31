@@ -661,6 +661,21 @@ export function MapViewClient({ center, zoom }: MapViewClientProps) {
 }
 ```
 
+### 4.7 OpenWeatherMap Precipitation Tiles
+
+#### 基本情報
+
+- **ベース URL**: `https://tile.openweathermap.org`
+- **用途**: 降水レイヤーの表示
+- **認証**: API キー必須（`NEXT_PUBLIC_OPENWEATHER_KEY`）
+- **データ形式**: Raster Tiles（PNG）
+
+#### タイル URL 例
+
+```
+https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid={OPENWEATHER_KEY}
+```
+
 ---
 
 ## 5. API エラーハンドリング戦略

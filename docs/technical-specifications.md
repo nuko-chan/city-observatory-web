@@ -276,6 +276,9 @@ city-observatory/
 # MapTiler（地図タイル）
 NEXT_PUBLIC_MAPTILER_KEY=your_dev_key_here
 
+# OpenWeather（降水レイヤー）
+NEXT_PUBLIC_OPENWEATHER_KEY=your_dev_key_here
+
 # 地図スタイルURL
 NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
 NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
@@ -295,6 +298,9 @@ NEXT_PUBLIC_SENTRY_DSN=
 ```bash
 # MapTiler API Key（DEV/PROD分ける）
 NEXT_PUBLIC_MAPTILER_KEY=
+
+# OpenWeather API Key
+NEXT_PUBLIC_OPENWEATHER_KEY=
 
 # Map Styles
 NEXT_PUBLIC_MAP_STYLE_LIGHT=
@@ -316,6 +322,9 @@ NEXT_PUBLIC_SENTRY_DSN=
 # MapTiler API Key（PROD）
 NEXT_PUBLIC_MAPTILER_KEY=your_prod_key_here
 
+# OpenWeather API Key
+NEXT_PUBLIC_OPENWEATHER_KEY=your_prod_key_here
+
 # Map Styles
 NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/streets-v2/style.json
 NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/streets-v2-dark/style.json
@@ -332,10 +341,12 @@ NEXT_PUBLIC_FEATURE_MAP=true
 **Preview 環境**:
 
 - `NEXT_PUBLIC_MAPTILER_KEY`: DEV キー（localhost + \*.vercel.app 許可）
+- `NEXT_PUBLIC_OPENWEATHER_KEY`: DEV キー
 
 **Production 環境**:
 
 - `NEXT_PUBLIC_MAPTILER_KEY`: PROD キー（本番 URL のみ許可）
+- `NEXT_PUBLIC_OPENWEATHER_KEY`: PROD キー
 
 ### 4.3 環境変数の型定義
 
@@ -345,6 +356,7 @@ import { z } from "zod";
 
 const envSchema = z.object({
   NEXT_PUBLIC_MAPTILER_KEY: z.string().min(1),
+  NEXT_PUBLIC_OPENWEATHER_KEY: z.string().min(1),
   NEXT_PUBLIC_MAP_STYLE_LIGHT: z.string().url().optional(),
   NEXT_PUBLIC_MAP_STYLE_DARK: z.string().url().optional(),
   NEXT_PUBLIC_DEFAULT_CITY: z.string().default("tokyo"),
@@ -356,6 +368,7 @@ const envSchema = z.object({
 
 export const env = envSchema.parse({
   NEXT_PUBLIC_MAPTILER_KEY: process.env.NEXT_PUBLIC_MAPTILER_KEY,
+  NEXT_PUBLIC_OPENWEATHER_KEY: process.env.NEXT_PUBLIC_OPENWEATHER_KEY,
   NEXT_PUBLIC_MAP_STYLE_LIGHT: process.env.NEXT_PUBLIC_MAP_STYLE_LIGHT,
   NEXT_PUBLIC_MAP_STYLE_DARK: process.env.NEXT_PUBLIC_MAP_STYLE_DARK,
   NEXT_PUBLIC_DEFAULT_CITY: process.env.NEXT_PUBLIC_DEFAULT_CITY,
@@ -1097,11 +1110,13 @@ pnpm audit
 **Preview 環境**:
 
 - `NEXT_PUBLIC_MAPTILER_KEY`: DEV キー
+- `NEXT_PUBLIC_OPENWEATHER_KEY`: DEV キー
 - 他の環境変数も同様に設定
 
 **Production 環境**:
 
 - `NEXT_PUBLIC_MAPTILER_KEY`: PROD キー（本番 URL のみ許可）
+- `NEXT_PUBLIC_OPENWEATHER_KEY`: PROD キー
 - 他の環境変数も同様に設定
 
 ### 11.3 ビルド最適化

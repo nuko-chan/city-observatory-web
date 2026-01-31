@@ -37,7 +37,7 @@ function getOverlayConfig(type: "none" | "precipitation") {
       id: "precipitation-layer",
       sourceId: "precipitation-source",
       tiles: [
-        "https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png",
+        `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${env.NEXT_PUBLIC_OPENWEATHER_KEY}`,
       ],
       opacity: 0.6,
     } satisfies OverlayConfig;
