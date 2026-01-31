@@ -130,19 +130,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 lg:flex-row lg:gap-8 lg:px-8 lg:py-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-5 lg:flex-row lg:gap-8 lg:px-6 lg:py-6">
         <aside className="w-full rounded-3xl border bg-background p-4 shadow-sm lg:w-64 lg:shrink-0 lg:p-6">
           <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
             City Observatory
           </div>
-          <div className="mt-6 space-y-2">
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-2 lg:mt-6 lg:flex-col lg:overflow-visible lg:pb-0">
             {cities.map((city) => (
               <button
                 key={city.id}
                 type="button"
                 onClick={() => setSelectedCityId(city.id)}
                 className={cn(
-                  "flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm transition",
+                  "flex min-w-[132px] flex-1 items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm transition lg:w-full lg:min-w-0",
                   selectedCityId === city.id
                     ? "border-primary bg-primary/10 text-foreground"
                     : "border-transparent hover:border-foreground/30",
@@ -158,7 +158,7 @@ export default function Home() {
         </aside>
 
         <main className="flex-1 space-y-6">
-          <header className="rounded-3xl border bg-background p-6 shadow-sm">
+          <header className="rounded-3xl border bg-background p-5 shadow-sm lg:p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
               Dashboard
             </div>
@@ -232,7 +232,7 @@ export default function Home() {
               )}
             </section>
 
-            <section className="h-[420px] overflow-hidden rounded-3xl border bg-background p-4 shadow-sm xl:h-auto">
+            <section className="h-[320px] overflow-hidden rounded-3xl border bg-background p-3 shadow-sm md:h-[420px] xl:h-auto xl:p-4">
               <MapView
                 center={[activeCity.lon, activeCity.lat]}
                 zoom={10}
