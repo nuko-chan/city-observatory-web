@@ -35,7 +35,7 @@ export function SunPathCard({
           {phaseLabel}
         </span>
       </div>
-      <div className="mt-4 rounded-2xl border border-foreground/10 p-4">
+      <div className="mt-4">
         <div
           className="relative h-24 w-full overflow-hidden rounded-xl"
           style={{ background }}
