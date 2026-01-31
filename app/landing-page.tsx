@@ -44,7 +44,7 @@ export default function Home() {
   const router = useRouter();
 
   const handleCitySelect = (city: Location) => {
-    router.push("/dashboard");
+    router.push("/");
   };
 
   return (
@@ -54,7 +54,7 @@ export default function Home() {
           City Observatory
         </div>
         <Link
-          href="/dashboard"
+          href="/"
           className="rounded-full border px-4 py-2 text-xs font-medium text-muted-foreground transition hover:border-foreground hover:text-foreground"
         >
           ダッシュボードへ
