@@ -14,89 +14,16 @@ import { WindCard } from "@/features/weather/ui/wind-card";
 import { SunPathCard } from "@/features/weather/ui/sun-path-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
-import type { Location } from "@/lib/types/location";
+import { cities } from "@/lib/constants/cities";
 import { cn } from "@/lib/utils";
+import { formatLocalTime, temperatureToColor } from "@/lib/utils/formatting";
 
-const cities: Array<Location & { label: string }> = [
-  {
-    id: 1850144,
-    name: "Tokyo",
-    label: "東京",
-    country: "Japan",
-    lat: 35.6895,
-    lon: 139.6917,
-    timezone: "Asia/Tokyo",
-  },
-  {
-    id: 1853909,
-    name: "Osaka",
-    label: "大阪",
-    country: "Japan",
-    lat: 34.6937,
-    lon: 135.5023,
-    timezone: "Asia/Tokyo",
-  },
-  {
-    id: 1856057,
-    name: "Nagoya",
-    label: "名古屋",
-    country: "Japan",
-    lat: 35.1815,
-    lon: 136.9066,
-    timezone: "Asia/Tokyo",
-  },
-  {
-    id: 2128295,
-    name: "Sapporo",
-    label: "札幌",
-    country: "Japan",
-    lat: 43.0618,
-    lon: 141.3545,
-    timezone: "Asia/Tokyo",
-  },
-  {
-    id: 1863967,
-    name: "Fukuoka",
-    label: "福岡",
-    country: "Japan",
-    lat: 33.5904,
-    lon: 130.4017,
-    timezone: "Asia/Tokyo",
-  },
-  {
-    id: 1856035,
-    name: "Naha",
-    label: "那覇",
-    country: "Japan",
-    lat: 26.2124,
-    lon: 127.6809,
-    timezone: "Asia/Tokyo",
-  },
-];
-
-function formatLocalTime(timeZone: string) {
-  return new Intl.DateTimeFormat("ja-JP", {
-    timeZone,
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(new Date());
-}
-
-// 気温から色を生成（データドリブン）
-function temperatureToColor(temp: number): string {
-  // 寒い（青系）← → 暖かい（オレンジ系）
-  if (temp < 5) return "210, 90%"; // 青
-  if (temp < 10) return "200, 85%";
-  if (temp < 15) return "190, 80%"; // シアン
-  if (temp < 20) return "160, 75%"; // 緑がかった
-  if (temp < 25) return "50, 80%"; // 黄色
-  if (temp < 30) return "35, 85%"; // オレンジ
-  return "15, 90%"; // 赤
-}
+const defaultLeftCityId = cities[0].id;
+const defaultRightCityId = cities[1].id;
 
 export default function ComparePage() {
-  const [leftCityId, setLeftCityId] = useState<number>(cities[0].id);
-  const [rightCityId, setRightCityId] = useState<number>(cities[1].id);
+  const [leftCityId, setLeftCityId] = useState<number>(defaultLeftCityId);
+  const [rightCityId, setRightCityId] = useState<number>(defaultRightCityId);
 
   const leftCity = cities.find((city) => city.id === leftCityId) ?? cities[0];
   const rightCity = cities.find((city) => city.id === rightCityId) ?? cities[1];
