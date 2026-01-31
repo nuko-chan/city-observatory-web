@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import type { WeatherDaily, WeatherHourly } from "@/lib/types/weather";
 import { cn } from "@/lib/utils";
+import { toUtcDateFromLocalTime } from "@/lib/utils/timezone";
 
 type HourlyKey =
   | "temperature_2m"
@@ -27,6 +28,7 @@ type DailyKey =
 type BaseChartProps = {
   title?: string;
   timeZone?: string;
+  utcOffsetSeconds?: number;
   onRangeChange?: (range: "24h" | "7d") => void;
 };
 
@@ -51,8 +53,10 @@ function formatTimeLabel(
   value: string,
   range: "24h" | "7d",
   timeZone?: string,
+  utcOffsetSeconds?: number,
 ) {
-  const date = new Date(value);
+  const date = toUtcDateFromLocalTime(value, utcOffsetSeconds);
+  if (!date) return value;
   if (Number.isNaN(date.getTime())) return value;
 
   const options: Intl.DateTimeFormatOptions =
@@ -72,6 +76,7 @@ export function WeatherChart({
   dataKey,
   title,
   timeZone,
+  utcOffsetSeconds,
   onRangeChange,
 }: WeatherChartProps) {
   const chartData = useMemo<ChartPoint[]>(() => {
@@ -82,10 +87,10 @@ export function WeatherChart({
         : (data as WeatherDaily)[dataKey as DailyKey];
 
     return times.map((time, index) => ({
-      time: formatTimeLabel(time, range, timeZone),
+      time: formatTimeLabel(time, range, timeZone, utcOffsetSeconds),
       value: values[index] ?? 0,
     }));
-  }, [data, dataKey, range, timeZone]);
+  }, [data, dataKey, range, timeZone, utcOffsetSeconds]);
 
   return (
     <div>

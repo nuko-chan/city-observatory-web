@@ -27,6 +27,7 @@ export const WeatherResponseSchema = z.object({
   latitude: z.number(),
   longitude: z.number(),
   timezone: z.string(),
+  utc_offset_seconds: z.number(),
   hourly: WeatherHourlySchema.optional(),
   daily: WeatherDailySchema.optional(),
 });

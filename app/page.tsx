@@ -36,6 +36,7 @@ export default function Home() {
     hourly: weatherQuery.data?.hourly,
     daily: weatherQuery.data?.daily,
     timeZone: weatherQuery.data?.timezone ?? activeCity.timezone,
+    utcOffsetSeconds: weatherQuery.data?.utc_offset_seconds,
   });
 
   const airSeries = useMemo(
@@ -213,20 +214,16 @@ export default function Home() {
             {weatherView?.sunriseAt && weatherView.sunsetAt ? (
               <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
                 <SunPathCard
-                  sunrise={new Date(weatherView.sunriseAt).toLocaleTimeString(
-                    "ja-JP",
-                    {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    },
-                  )}
-                  sunset={new Date(weatherView.sunsetAt).toLocaleTimeString(
-                    "ja-JP",
-                    {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    },
-                  )}
+                  sunrise={weatherView.sunriseAt.toLocaleTimeString("ja-JP", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: weatherView.timeZone,
+                  })}
+                  sunset={weatherView.sunsetAt.toLocaleTimeString("ja-JP", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: weatherView.timeZone,
+                  })}
                   nowLabel={formatLocalTime(activeCity.timezone)}
                   phaseLabel={weatherView.sunPhaseLabel}
                   progress={weatherView.sunProgress}
@@ -245,6 +242,7 @@ export default function Home() {
                   data={weatherQuery.data.hourly}
                   dataKey="temperature_2m"
                   timeZone={weatherQuery.data.timezone}
+                  utcOffsetSeconds={weatherQuery.data.utc_offset_seconds}
                 />
               </div>
             ) : (

@@ -25,6 +25,7 @@ export type WeatherResponse = {
   latitude: number;
   longitude: number;
   timezone: string;
+  utc_offset_seconds: number;
   hourly?: WeatherHourly;
   daily?: WeatherDaily;
 };

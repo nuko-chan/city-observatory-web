@@ -12,14 +12,16 @@ import {
   getSunPhaseLabel,
   getSunProgress,
 } from "@/lib/domain/sun-path";
+import { toUtcDateFromLocalTime } from "@/lib/utils/timezone";
 
-function findClosestIndex(times: string[]) {
+function findClosestIndex(times: string[], utcOffsetSeconds?: number) {
   const now = Date.now();
   let bestIndex = 0;
   let bestDiff = Number.POSITIVE_INFINITY;
 
   times.forEach((time, index) => {
-    const value = new Date(time).getTime();
+    const value = toUtcDateFromLocalTime(time, utcOffsetSeconds)?.getTime();
+    if (!value) return;
     const diff = Math.abs(value - now);
     if (diff < bestDiff) {
       bestDiff = diff;
@@ -34,16 +36,18 @@ type WeatherSnapshotInput = {
   hourly: WeatherHourly | undefined;
   daily: WeatherDaily | undefined;
   timeZone: string;
+  utcOffsetSeconds?: number;
 };
 
 export function useWeatherSnapshot({
   hourly,
   daily,
   timeZone,
+  utcOffsetSeconds,
 }: WeatherSnapshotInput) {
   return useMemo(() => {
     if (!hourly) return undefined;
-    const index = findClosestIndex(hourly.time);
+    const index = findClosestIndex(hourly.time, utcOffsetSeconds);
     const snapshot = {
       temperature: hourly.temperature_2m[index],
       apparentTemperature: hourly.apparent_temperature[index],
@@ -64,15 +68,21 @@ export function useWeatherSnapshot({
     const windDirectionRotation = getWindDirectionRotation(
       snapshot.windDirection,
     );
-    const sunriseAt = daily?.sunrise?.[0];
-    const sunsetAt = daily?.sunset?.[0];
+    const sunriseAtRaw = daily?.sunrise?.[0];
+    const sunsetAtRaw = daily?.sunset?.[0];
+    const sunriseAt = sunriseAtRaw
+      ? toUtcDateFromLocalTime(sunriseAtRaw, utcOffsetSeconds)
+      : undefined;
+    const sunsetAt = sunsetAtRaw
+      ? toUtcDateFromLocalTime(sunsetAtRaw, utcOffsetSeconds)
+      : undefined;
     const sunPhase =
       sunriseAt && sunsetAt
-        ? getSunPhase(new Date(), new Date(sunriseAt), new Date(sunsetAt))
+        ? getSunPhase(new Date(), sunriseAt, sunsetAt)
         : "night";
     const sunProgress =
       sunriseAt && sunsetAt
-        ? getSunProgress(new Date(), new Date(sunriseAt), new Date(sunsetAt))
+        ? getSunProgress(new Date(), sunriseAt, sunsetAt)
         : 0;
     const sunPhaseLabel = getSunPhaseLabel(sunPhase);
     const sunPhaseBackground = getSunPhaseBackground(sunPhase);
@@ -91,5 +101,5 @@ export function useWeatherSnapshot({
       sunProgress,
       timeZone,
     };
-  }, [daily, hourly, timeZone]);
+  }, [daily, hourly, timeZone, utcOffsetSeconds]);
 }

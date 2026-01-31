@@ -36,11 +36,13 @@ export default function ComparePage() {
     hourly: leftWeather.data?.hourly,
     daily: leftWeather.data?.daily,
     timeZone: leftWeather.data?.timezone ?? leftCity.timezone,
+    utcOffsetSeconds: leftWeather.data?.utc_offset_seconds,
   });
   const rightWeatherView = useWeatherSnapshot({
     hourly: rightWeather.data?.hourly,
     daily: rightWeather.data?.daily,
     timeZone: rightWeather.data?.timezone ?? rightCity.timezone,
+    utcOffsetSeconds: rightWeather.data?.utc_offset_seconds,
   });
 
   const leftAirSeries = useMemo(
@@ -316,19 +318,19 @@ export default function ComparePage() {
             {leftWeatherView?.sunriseAt && leftWeatherView.sunsetAt ? (
               <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
                 <SunPathCard
-                  sunrise={new Date(
-                    leftWeatherView.sunriseAt,
-                  ).toLocaleTimeString("ja-JP", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  sunset={new Date(leftWeatherView.sunsetAt).toLocaleTimeString(
+                  sunrise={leftWeatherView.sunriseAt.toLocaleTimeString(
                     "ja-JP",
                     {
                       hour: "2-digit",
                       minute: "2-digit",
+                      timeZone: leftWeatherView.timeZone,
                     },
                   )}
+                  sunset={leftWeatherView.sunsetAt.toLocaleTimeString("ja-JP", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: leftWeatherView.timeZone,
+                  })}
                   nowLabel={formatLocalTime(leftCity.timezone)}
                   phaseLabel={leftWeatherView.sunPhaseLabel}
                   progress={leftWeatherView.sunProgress}
@@ -347,6 +349,7 @@ export default function ComparePage() {
                   data={leftWeather.data.hourly}
                   dataKey="temperature_2m"
                   timeZone={leftWeather.data.timezone}
+                  utcOffsetSeconds={leftWeather.data.utc_offset_seconds}
                 />
               </div>
             ) : (
@@ -433,18 +436,22 @@ export default function ComparePage() {
             {rightWeatherView?.sunriseAt && rightWeatherView.sunsetAt ? (
               <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
                 <SunPathCard
-                  sunrise={new Date(
-                    rightWeatherView.sunriseAt,
-                  ).toLocaleTimeString("ja-JP", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  sunset={new Date(
-                    rightWeatherView.sunsetAt,
-                  ).toLocaleTimeString("ja-JP", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  sunrise={rightWeatherView.sunriseAt.toLocaleTimeString(
+                    "ja-JP",
+                    {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      timeZone: rightWeatherView.timeZone,
+                    },
+                  )}
+                  sunset={rightWeatherView.sunsetAt.toLocaleTimeString(
+                    "ja-JP",
+                    {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      timeZone: rightWeatherView.timeZone,
+                    },
+                  )}
                   nowLabel={formatLocalTime(rightCity.timezone)}
                   phaseLabel={rightWeatherView.sunPhaseLabel}
                   progress={rightWeatherView.sunProgress}
@@ -463,6 +470,7 @@ export default function ComparePage() {
                   data={rightWeather.data.hourly}
                   dataKey="temperature_2m"
                   timeZone={rightWeather.data.timezone}
+                  utcOffsetSeconds={rightWeather.data.utc_offset_seconds}
                 />
               </div>
             ) : (
