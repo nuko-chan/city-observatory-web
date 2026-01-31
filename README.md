@@ -4,6 +4,8 @@
 
 ![City Observatory サンプル](public/sample.png)
 
+本番URL: https://city-observatory.vercel.app/
+
 ## 📱 ページ構成
 
 ### 1. トップページ (`/`)
