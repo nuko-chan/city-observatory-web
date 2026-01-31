@@ -13,7 +13,7 @@ import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { CloudRain, MapPin, Moon, Sun, Wind } from "lucide-react";
 
 const cities: Array<Location & { label: string }> = [
   {
@@ -224,7 +224,8 @@ export default function Home() {
               <span className="text-sm text-muted-foreground">
                 {activeCity.country}
               </span>
-              <span className="text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin size={14} className="text-muted-foreground" />
                 {formatLocalTime(activeCity.timezone)}（現地時刻）
               </span>
             </div>
@@ -241,6 +242,7 @@ export default function Home() {
                   weatherSnapshot?.precipitationProbability ?? 0
                 }
                 isLoading={weatherQuery.isLoading}
+                icon={<CloudRain size={16} className="text-muted-foreground" />}
               />
               {weatherQuery.data?.hourly && weatherRange === "24h" && (
                 <WeatherChart
@@ -272,6 +274,7 @@ export default function Home() {
                 nitrogenDioxide={airSnapshot?.nitrogenDioxide ?? 0}
                 ozone={airSnapshot?.ozone ?? 0}
                 isLoading={airQuery.isLoading}
+                icon={<Wind size={16} className="text-muted-foreground" />}
               />
               {airQuery.data?.hourly ? (
                 <AQChart

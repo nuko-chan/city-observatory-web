@@ -4,6 +4,7 @@ type AirQualityCardProps = {
   nitrogenDioxide: number;
   ozone: number;
   isLoading?: boolean;
+  icon?: React.ReactNode;
 };
 
 type AirQualityLabel = "good" | "moderate" | "unhealthy" | "hazardous";
@@ -28,6 +29,7 @@ export function AirQualityCard({
   nitrogenDioxide,
   ozone,
   isLoading = false,
+  icon,
 }: AirQualityCardProps) {
   if (isLoading) {
     return (
@@ -50,9 +52,12 @@ export function AirQualityCard({
     <div className="rounded-2xl border bg-background p-6 shadow-sm">
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>空気の状態</span>
-        <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground">
-          {labelMap[label]}
-        </span>
+        <div className="flex items-center gap-2">
+          {icon}
+          <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground">
+            {labelMap[label]}
+          </span>
+        </div>
       </div>
       <div className="mt-3 text-4xl font-semibold">
         {pm25.toFixed(1)}
