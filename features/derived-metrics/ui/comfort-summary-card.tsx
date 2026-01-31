@@ -36,7 +36,7 @@ export function ComfortSummaryCard({
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
-            Comfort Summary
+            快適度サマリー
           </div>
           <div className="mt-3 flex items-end gap-2">
             <div className="text-4xl font-semibold text-foreground">
@@ -47,7 +47,7 @@ export function ComfortSummaryCard({
         </div>
         <div className="flex flex-col items-end gap-2">
           <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            Outdoor Risk
+            外出リスク
           </div>
           <div className="flex items-center gap-2 text-sm font-medium text-foreground">
             <span
