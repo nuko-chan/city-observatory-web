@@ -7,15 +7,50 @@ import { ExternalLink } from "lucide-react";
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* 背景グラデーション */}
+      {/* ノイズテクスチャ付きメッシュグラデーション */}
       <div className="fixed inset-0 -z-10">
+        {/* SVGノイズフィルター */}
+        <svg className="absolute h-0 w-0">
+          <filter id="noise-about">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.8"
+              numOctaves="4"
+              stitchTiles="stitch"
+            />
+            <feColorMatrix type="saturate" values="0" />
+            <feBlend mode="multiply" in="SourceGraphic" />
+          </filter>
+        </svg>
+
+        {/* 複数のグラデーションレイヤー - 紫〜青系の深い色合い */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-60"
           style={{
-            background:
-              "radial-gradient(ellipse at 50% 30%, hsl(200, 80%, 45%) 0%, hsl(200, 60%, 25%) 30%, transparent 65%)",
+            background: `
+              radial-gradient(circle at 15% 25%, hsl(270, 75%, 50%) 0%, transparent 45%),
+              radial-gradient(circle at 75% 50%, hsl(220, 70%, 45%) 0%, transparent 50%),
+              radial-gradient(ellipse at 45% 85%, hsl(250, 65%, 40%) 0%, transparent 55%)
+            `,
           }}
         />
+        <div
+          className="absolute inset-0 opacity-35"
+          style={{
+            background: `
+              radial-gradient(circle at 55% 35%, hsl(190, 60%, 50%) 0%, transparent 40%),
+              radial-gradient(circle at 25% 75%, hsl(280, 55%, 45%) 0%, transparent 48%)
+            `,
+          }}
+        />
+
+        {/* ノイズテクスチャオーバーレイ */}
+        <div
+          className="absolute inset-0 opacity-[0.15] mix-blend-overlay"
+          style={{ filter: "url(#noise-about)" }}
+        />
+
+        {/* ベース背景 */}
         <div className="absolute inset-0 -z-10 bg-background" />
       </div>
 

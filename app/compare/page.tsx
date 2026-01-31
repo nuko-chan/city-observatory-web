@@ -61,29 +61,76 @@ export default function ComparePage() {
   );
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* データドリブンな背景グラデーション */}
+      {/* ノイズテクスチャ付きメッシュグラデーション */}
       <div className="fixed inset-0 -z-10">
-        {/* 左側のグラデーション */}
+        {/* SVGノイズフィルター */}
+        <svg className="absolute h-0 w-0">
+          <filter id="noise-compare">
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.8"
+              numOctaves="4"
+              stitchTiles="stitch"
+            />
+            <feColorMatrix type="saturate" values="0" />
+            <feBlend mode="multiply" in="SourceGraphic" />
+          </filter>
+        </svg>
+
+        {/* 左側の都市：複数のグラデーションレイヤー */}
         <div
-          className="absolute left-0 top-0 h-full w-1/2 transition-all duration-1000"
+          className="absolute left-0 top-0 h-full w-1/2 opacity-60 transition-all duration-1000"
           style={{
-            background: `radial-gradient(ellipse at 20% 50%, hsl(${leftBgColor}, 40%) 0%, hsl(${leftBgColor}, 20%) 40%, transparent 70%)`,
+            background: `
+              radial-gradient(circle at 15% 20%, hsl(${leftBgColor}, 55%) 0%, transparent 45%),
+              radial-gradient(circle at 35% 65%, hsl(${leftBgColor}, 45%) 0%, transparent 50%),
+              radial-gradient(ellipse at 10% 80%, hsl(${leftBgColor}, 35%) 0%, transparent 55%)
+            `,
           }}
         />
-        {/* 右側のグラデーション */}
         <div
-          className="absolute right-0 top-0 h-full w-1/2 transition-all duration-1000"
+          className="absolute left-0 top-0 h-full w-1/2 opacity-35 transition-all duration-1000"
           style={{
-            background: `radial-gradient(ellipse at 80% 50%, hsl(${rightBgColor}, 40%) 0%, hsl(${rightBgColor}, 20%) 40%, transparent 70%)`,
+            background: `
+              radial-gradient(circle at 25% 45%, hsl(${(parseInt(leftBgColor.split(" ")[0]) + 25) % 360} ${leftBgColor.split(" ")[1]} ${leftBgColor.split(" ")[2]}, 40%) 0%, transparent 42%)
+            `,
           }}
         />
-        {/* 中央のブレンド */}
+
+        {/* 右側の都市：複数のグラデーションレイヤー */}
         <div
-          className="absolute left-1/2 top-0 h-full w-1/3 -translate-x-1/2 opacity-30 blur-3xl"
+          className="absolute right-0 top-0 h-full w-1/2 opacity-60 transition-all duration-1000"
           style={{
-            background: `linear-gradient(135deg, hsl(${leftBgColor}, 30%), hsl(${rightBgColor}, 30%))`,
+            background: `
+              radial-gradient(circle at 85% 20%, hsl(${rightBgColor}, 55%) 0%, transparent 45%),
+              radial-gradient(circle at 65% 65%, hsl(${rightBgColor}, 45%) 0%, transparent 50%),
+              radial-gradient(ellipse at 90% 80%, hsl(${rightBgColor}, 35%) 0%, transparent 55%)
+            `,
           }}
         />
+        <div
+          className="absolute right-0 top-0 h-full w-1/2 opacity-35 transition-all duration-1000"
+          style={{
+            background: `
+              radial-gradient(circle at 75% 45%, hsl(${(parseInt(rightBgColor.split(" ")[0]) + 25) % 360} ${rightBgColor.split(" ")[1]} ${rightBgColor.split(" ")[2]}, 40%) 0%, transparent 42%)
+            `,
+          }}
+        />
+
+        {/* 中央のブレンドゾーン */}
+        <div
+          className="absolute left-1/2 top-0 h-full w-1/3 -translate-x-1/2 opacity-25 blur-3xl transition-all duration-1000"
+          style={{
+            background: `linear-gradient(135deg, hsl(${leftBgColor}, 35%), hsl(${rightBgColor}, 35%))`,
+          }}
+        />
+
+        {/* ノイズテクスチャオーバーレイ */}
+        <div
+          className="absolute inset-0 opacity-[0.15] mix-blend-overlay"
+          style={{ filter: "url(#noise-compare)" }}
+        />
+
         {/* ベース背景 */}
         <div className="absolute inset-0 -z-10 bg-background" />
       </div>
