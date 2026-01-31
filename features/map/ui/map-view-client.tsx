@@ -58,6 +58,7 @@ export function MapViewClient({
 }: MapViewClientProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | undefined>(undefined);
+  const markersRef = useRef<maplibregl.Marker[]>([]);
   const [hasError, setHasError] = useState<boolean>(false);
   const styleUrl = buildMapStyleUrl();
 
@@ -78,23 +79,35 @@ export function MapViewClient({
       setHasError(true);
     });
 
-    if (markers && markers.length > 0) {
-      markers.forEach((marker) => {
-        new maplibregl.Marker({ color: "hsl(var(--primary))" })
-          .setLngLat([marker.lng, marker.lat])
-          .addTo(mapRef.current!);
-      });
-    } else {
-      new maplibregl.Marker({ color: "hsl(var(--primary))" })
-        .setLngLat(center)
-        .addTo(mapRef.current);
-    }
-
     return () => {
+      markersRef.current.forEach((marker) => marker.remove());
+      markersRef.current = [];
       mapRef.current?.remove();
       mapRef.current = undefined;
     };
-  }, [center, zoom, markers, styleUrl]);
+  }, [styleUrl]);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    mapRef.current.setCenter(center);
+    mapRef.current.setZoom(zoom);
+  }, [center, zoom]);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    markersRef.current.forEach((marker) => marker.remove());
+    markersRef.current = [];
+
+    const nextMarkers =
+      markers && markers.length > 0
+        ? markers
+        : [{ lng: center[0], lat: center[1] }];
+    markersRef.current = nextMarkers.map((marker) =>
+      new maplibregl.Marker({ color: "hsl(var(--primary))" })
+        .setLngLat([marker.lng, marker.lat])
+        .addTo(mapRef.current!),
+    );
+  }, [markers, center]);
 
   useEffect(() => {
     if (!mapRef.current) return;
