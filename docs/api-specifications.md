@@ -460,7 +460,7 @@ import { AirQualityResponseSchema } from "../lib/validators/air-quality";
 export async function getAirQualityForecast(
   lat: number,
   lon: number,
-  range: "24h" | "7d",
+  range: "24h" | "5d",
 ) {
   const url = new URL("https://air-quality-api.open-meteo.com/v1/air-quality");
   url.searchParams.set("latitude", lat.toString());

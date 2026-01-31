@@ -264,7 +264,7 @@ git push -u origin main
 #### 3-3-3. Air Quality API（大気質予報）
 
 - [ ] `lib/api/air-quality.ts` 作成
-- [ ] `getAirQualityForecast(lat: number, lon: number, range: '24h' | '7d')` 関数実装
+- [ ] `getAirQualityForecast(lat: number, lon: number, range: '24h' | '5d')` 関数実装
   - エンドポイント: `https://air-quality-api.open-meteo.com/v1/air-quality`
   - パラメータ:
     - `latitude=${lat}&longitude=${lon}`
@@ -437,7 +437,7 @@ git push -u origin main
   - AQI 分類によるカラーコード
 - [ ] `features/air-quality/ui/aq-chart.tsx` 作成
   - Recharts 使用
-  - PM2.5 の時系列チャート
+  - PM2.5 の時系列チャート（24h/5d）
 
 ### 6-5. 比較コンポーネント
 
@@ -543,7 +543,8 @@ git push -u origin main
 ### 8-4. URL 同期
 
 - [ ] nuqs で状態を URL に同期
-  - `?city=tokyo&tab=weather&range=7d`
+  - 天気例: `?city=tokyo&tab=weather&range=7d`
+  - AQ例: `?city=tokyo&tab=aq&range=5d`
 - [ ] ブラウザバック/フォワード対応確認
 
 ---

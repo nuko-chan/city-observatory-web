@@ -1088,7 +1088,7 @@ const nextConfig: NextConfig = {
 **Free プランロゴ**:
 
 ```tsx
-// components/map/MapView.tsx内
+// features/map/ui/map-view-client.tsx内
 <div className="absolute bottom-2 left-2 z-10">
   <a href="https://www.maptiler.com" target="_blank" rel="noopener noreferrer">
     <img
