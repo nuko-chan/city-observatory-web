@@ -10,6 +10,7 @@ import { MapView } from "@/features/map/ui/map-view";
 import { MapOverlayToggle } from "@/features/map/ui/map-overlay-toggle";
 import { useWeatherData } from "@/features/weather/model/use-weather-data";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
+import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { getAirQualitySnapshot } from "@/lib/domain/air-quality-snapshot";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
@@ -111,7 +112,7 @@ export default function Home() {
     cities.find((city) => city.id === selectedCityId) ?? cities[0];
 
   const weatherQuery = useWeatherData(activeCity, weatherRange);
-  const airQuery = useAirQualityData(activeCity, airRange);
+  const airQuery = useAirQualityData(activeCity, "5d");
 
   const weatherSnapshot = useMemo(() => {
     if (!weatherQuery.data?.hourly) return undefined;
@@ -129,6 +130,10 @@ export default function Home() {
   const airSnapshot = useMemo(
     () => getAirQualitySnapshot(airQuery.data?.hourly),
     [airQuery.data],
+  );
+  const airSeries = useMemo(
+    () => getAirQualitySeries(airQuery.data?.hourly, airRange),
+    [airQuery.data, airRange],
   );
 
   return (
@@ -277,10 +282,10 @@ export default function Home() {
                 icon={<Wind size={16} className="text-muted-foreground" />}
               />
               {airRange === "24h" &&
-                (airQuery.data?.hourly && !airQuery.isFetching ? (
+                (airSeries && !airQuery.isFetching ? (
                   <AQChart
                     title="PM2.5 推移"
-                    data={airQuery.data.hourly}
+                    data={airSeries}
                     dataKey="pm2_5"
                     range="24h"
                     timeZone={airQuery.data.timezone}
@@ -290,10 +295,10 @@ export default function Home() {
                   <div className="h-[320px] w-full animate-pulse rounded-2xl border bg-muted/30" />
                 ))}
               {airRange === "5d" &&
-                (airQuery.data?.hourly && !airQuery.isFetching ? (
+                (airSeries && !airQuery.isFetching ? (
                   <AQChart
                     title="PM2.5 推移"
-                    data={airQuery.data.hourly}
+                    data={airSeries}
                     dataKey="pm2_5"
                     range="5d"
                     timeZone={airQuery.data.timezone}
