@@ -8,8 +8,10 @@ import { AQChart } from "@/features/air-quality/ui/aq-chart";
 import { MapView } from "@/features/map/ui/map-view";
 import { MapOverlayToggle } from "@/features/map/ui/map-overlay-toggle";
 import { useWeatherData } from "@/features/weather/model/use-weather-data";
+import { WeatherIcon } from "@/features/weather/ui/weather-icon";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
+import { getWeatherClassification } from "@/lib/domain/weather-classification";
 import type { Location } from "@/lib/types/location";
 import { cn } from "@/lib/utils";
 
@@ -126,6 +128,7 @@ export default function Home() {
       apparentTemperature: weatherQuery.data.hourly.apparent_temperature[index],
       humidity: weatherQuery.data.hourly.relative_humidity_2m[index],
       windSpeed: weatherQuery.data.hourly.wind_speed_10m[index],
+      weathercode: weatherQuery.data.hourly.weathercode[index],
       precipitationProbability:
         weatherQuery.data.hourly.precipitation_probability[index],
     };
@@ -136,9 +139,12 @@ export default function Home() {
     [airQuery.data],
   );
 
+  const weatherClassification = weatherSnapshot
+    ? getWeatherClassification(weatherSnapshot.weathercode)
+    : undefined;
+
   // 背景色をデータから生成
   const bgColor = temperatureToColor(weatherSnapshot?.temperature ?? 20);
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* データドリブンな背景グラデーション */}
@@ -222,6 +228,16 @@ export default function Home() {
                 precipitationProbability={
                   weatherSnapshot?.precipitationProbability ?? 0
                 }
+                icon={
+                  weatherClassification ? (
+                    <WeatherIcon
+                      iconKey={weatherClassification.iconKey}
+                      label={weatherClassification.label}
+                      className="h-5 w-5"
+                    />
+                  ) : undefined
+                }
+                conditionLabel={weatherClassification?.label}
                 isLoading={weatherQuery.isLoading}
               />
             </div>
