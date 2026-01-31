@@ -33,6 +33,11 @@ type OverlayConfig = {
 
 function getOverlayConfig(type: "none" | "precipitation") {
   if (type === "precipitation") {
+    const tilesUrl = new URL(
+      "https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png",
+    );
+    tilesUrl.searchParams.set("appid", env.NEXT_PUBLIC_OPENWEATHER_KEY);
+
     return {
       id: "precipitation-layer",
       sourceId: "precipitation-source",
