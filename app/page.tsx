@@ -174,6 +174,32 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div className="mt-6 hidden rounded-2xl border bg-muted/30 p-4 text-xs text-muted-foreground lg:block">
+            <div className="text-sm font-semibold text-foreground">
+              nuko-chan
+            </div>
+            <p className="mt-2 leading-relaxed">
+              Webアプリ開発（TypeScript / React / Next.js / Node.js）
+            </p>
+            <div className="mt-3 flex flex-col gap-2">
+              <a
+                className="underline-offset-4 hover:underline"
+                href="https://x.com/nukochan_123"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                X: @nukochan_123
+              </a>
+              <a
+                className="underline-offset-4 hover:underline"
+                href="https://nuko-chan.pages.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Blog: nuko-chan.pages.dev
+              </a>
+            </div>
+          </div>
         </aside>
 
         <main className="flex-1 space-y-6">
