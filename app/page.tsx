@@ -258,6 +258,7 @@ export default function Home() {
                   dataKey="pm2_5"
                   range="24h"
                   timeZone={airQuery.data?.timezone ?? activeCity.timezone}
+                  utcOffsetSeconds={airQuery.data?.utc_offset_seconds}
                 />
               </div>
             ) : (

@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import type { AirQualityHourly } from "@/lib/types/air-quality";
 import { cn } from "@/lib/utils";
+import { toUtcDateFromLocalTime } from "@/lib/utils/timezone";
 
 type AQKey = "pm2_5" | "pm10" | "nitrogen_dioxide" | "ozone";
 
@@ -20,6 +21,7 @@ type AQChartProps = {
   range: "24h" | "5d";
   title?: string;
   timeZone?: string;
+  utcOffsetSeconds?: number;
   onRangeChange?: (range: "24h" | "5d") => void;
 };
 
@@ -32,9 +34,10 @@ function formatTimeLabel(
   value: string,
   range: "24h" | "5d",
   timeZone?: string,
+  utcOffsetSeconds?: number,
 ) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
+  const date = toUtcDateFromLocalTime(value, utcOffsetSeconds);
+  if (!date || Number.isNaN(date.getTime())) return value;
 
   const options: Intl.DateTimeFormatOptions =
     range === "24h"
@@ -53,15 +56,16 @@ export function AQChart({
   range,
   title,
   timeZone,
+  utcOffsetSeconds,
   onRangeChange,
 }: AQChartProps) {
   const chartData = useMemo<ChartPoint[]>(() => {
     const values = data[dataKey];
     return data.time.map((time, index) => ({
-      time: formatTimeLabel(time, range, timeZone),
+      time: formatTimeLabel(time, range, timeZone, utcOffsetSeconds),
       value: values[index] ?? 0,
     }));
-  }, [data, dataKey, range, timeZone]);
+  }, [data, dataKey, range, timeZone, utcOffsetSeconds]);
 
   return (
     <div>

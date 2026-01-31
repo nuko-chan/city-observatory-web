@@ -18,6 +18,7 @@ export type AirQualityResponse = {
   latitude: number;
   longitude: number;
   timezone: string;
+  utc_offset_seconds: number;
   hourly: AirQualityHourly;
 };
 
@@ -25,5 +26,6 @@ export type AirQualityResponseRaw = {
   latitude: number;
   longitude: number;
   timezone: string;
+  utc_offset_seconds: number;
   hourly: AirQualityHourlyRaw;
 };

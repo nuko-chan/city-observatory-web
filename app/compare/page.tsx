@@ -365,6 +365,7 @@ export default function ComparePage() {
                   dataKey="pm2_5"
                   range="24h"
                   timeZone={leftAir24.data?.timezone ?? leftCity.timezone}
+                  utcOffsetSeconds={leftAir24.data?.utc_offset_seconds}
                 />
               </div>
             ) : (
@@ -486,6 +487,7 @@ export default function ComparePage() {
                   dataKey="pm2_5"
                   range="24h"
                   timeZone={rightAir24.data?.timezone ?? rightCity.timezone}
+                  utcOffsetSeconds={rightAir24.data?.utc_offset_seconds}
                 />
               </div>
             ) : (

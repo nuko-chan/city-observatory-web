@@ -57,6 +57,7 @@ export function normalizeAirQualityResponse(
     latitude: raw.latitude,
     longitude: raw.longitude,
     timezone: raw.timezone,
+    utc_offset_seconds: raw.utc_offset_seconds,
     hourly: normalizeHourly(raw.hourly),
   };
 }

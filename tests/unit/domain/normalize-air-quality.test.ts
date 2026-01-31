@@ -7,6 +7,7 @@ describe("normalizeAirQualityResponse", () => {
       latitude: 35.6,
       longitude: 139.6,
       timezone: "Asia/Tokyo",
+      utc_offset_seconds: 32400,
       hourly: {
         time: ["t0", "t1", "t2"],
         pm10: [10, 11, null],
@@ -27,6 +28,7 @@ describe("normalizeAirQualityResponse", () => {
       latitude: 35.6,
       longitude: 139.6,
       timezone: "Asia/Tokyo",
+      utc_offset_seconds: 32400,
       hourly: {
         time: ["t0", "t1", "t2", "t3"],
         pm10: [10, null, 12, 13],

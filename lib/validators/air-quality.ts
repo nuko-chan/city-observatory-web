@@ -12,5 +12,6 @@ export const AirQualityResponseSchema = z.object({
   latitude: z.number(),
   longitude: z.number(),
   timezone: z.string(),
+  utc_offset_seconds: z.number(),
   hourly: AirQualityHourlySchema,
 });
