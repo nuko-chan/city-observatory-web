@@ -1,22 +1,30 @@
-# Summary
+# 概要
 
-<!-- What does this PR change? -->
+<!-- このPRで何が変わるかを簡潔に -->
 
-# Changes
+# 背景・目的
 
 -
 
-# Testing
+# 変更内容
 
-- [ ] Not run (reason):
-- [ ] Manual:
-- [ ] Automated:
+-
 
-# Screenshots
+# 影響範囲
 
-- [ ] Not needed
-- [ ] Attached
+-
 
-# Issue
+# テスト
 
-- Fixes #<issue-number>
+- [ ] 未実施（理由）:
+- [ ] 手動:
+- [ ] 自動:
+
+# スクリーンショット
+
+- [ ] 不要
+- [ ] 添付
+
+# 関連Issue
+
+- Closes #<issue-number>
