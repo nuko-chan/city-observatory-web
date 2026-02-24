@@ -87,7 +87,7 @@ export default function AboutPage() {
           <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
             <div className="flex items-center gap-6">
               <Image
-                src="/cat.jpeg"
+                src="/nuko.png"
                 alt="プロフィールアイコン"
                 width={120}
                 height={120}
@@ -98,132 +98,77 @@ export default function AboutPage() {
                   nuko-chan
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  東京でWebアプリ開発のフリーランスをしています！
+                  東京でWebアプリ開発のフリーランスをしています。
                 </p>
               </div>
             </div>
           </div>
 
-          {/* 経験・スキル */}
+          {/* リンク集 */}
           <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
             <h2 className="mb-4 text-2xl font-bold text-foreground">
-              💼 経験・スキル
+              🔗 リンク
             </h2>
-            <div className="space-y-2 text-muted-foreground">
-              <p>
-                開発経験は2年6ヶ月ほど。約2年にわたってReact/TypeScriptを使った開発を複数案件で一貫して担当してきました。直近1年はフロントエンドリーダーとして技術選定やアーキテクチャ設計（モノレポ移行、FEアーキテクチャ設計など）に携わりつつ、バックエンドでもExpressを使った認証やAPI実装に関わっています。
-              </p>
-              <p>
-                要件定義から設計、実装、テスト、保守運用まで一通り経験があり、新人指導やコードレビューも行ってきました。AI活用にも積極的で、Cursor/Claude
-                Code/Geminiを業務に導入した経験があります。
-              </p>
-              <p>
-                主な技術スタックはTypeScript、React、Express、Docker、AWSです（AWS
-                SAA取得済み）。バックエンドの実務経験はまだ軽めですが、今後はフロントエンドの経験を活かしながら、BFFやAPIの領域をメインに活動していきたいと考えています。
-              </p>
+            <div className="space-y-3">
+              <a
+                href="https://github.com/nuko-chan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-foreground transition-colors hover:text-primary"
+              >
+                <ExternalLink size={16} />
+                <span>GitHub: @nuko-chan</span>
+              </a>
+              <a
+                href="https://x.com/nukochan_123"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-foreground transition-colors hover:text-primary"
+              >
+                <ExternalLink size={16} />
+                <span>X (Twitter): @nukochan_123</span>
+              </a>
+              <a
+                href="https://nuko-chan.pages.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-foreground transition-colors hover:text-primary"
+              >
+                <ExternalLink size={16} />
+                <span>技術ブログ: nuko-chan.pages.dev</span>
+              </a>
             </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              詳しいプロフィールや経験・スキルは{" "}
+              <a
+                href="https://github.com/nuko-chan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline-offset-4 hover:underline"
+              >
+                GitHub
+              </a>{" "}
+              をご覧ください。
+            </p>
           </div>
 
-          {/* 案件募集中 */}
+          {/* 連絡先 */}
           <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
             <h2 className="mb-4 text-2xl font-bold text-foreground">
-              📢 案件募集中
+              💬 連絡先
             </h2>
-            <div className="space-y-4 text-muted-foreground">
-              <div>
-                <p className="font-medium text-foreground mb-2">基本条件</p>
-                <ul className="space-y-1.5 text-sm list-none">
-                  <li>・ 2026年2月16日から稼働開始できます</li>
-                  <li>・ 週5稼働が基本ですが、週4も相談できます</li>
-                  <li>・ 地方在住予定のため、フルリモートでお願いしています</li>
-                  <li>
-                    ・
-                    契約期間は6ヶ月以上の長期を希望していますが、最短3ヶ月からでも相談可能です
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-medium text-foreground mb-2">希望する案件</p>
-                <ul className="space-y-1.5 text-sm list-none">
-                  <li>
-                    ・
-                    TypeScriptとReact（できればNext.js）を使った新規開発か大規模リファクタリング
-                  </li>
-                  <li>
-                    ・
-                    フロントエンド7割、バックエンド3割くらいのバランスだと理想的です
-                  </li>
-                  <li>
-                    ・ Node.js（ExpressやHono）を使ったBFFやREST
-                    API開発に携われると嬉しいです
-                  </li>
-                  <li>
-                    ・
-                    DB設計・SQL、認証認可あたりの経験を積める環境だとさらに良いです
-                  </li>
-                  <li>
-                    ・
-                    5名以上のチームで、PRレビュー文化がしっかりしていると助かります
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-medium text-foreground mb-2">あると嬉しい</p>
-                <ul className="space-y-1.5 text-sm list-none">
-                  <li>・ AWSやCI/CD改善に関われる</li>
-                  <li>・ 技術的な意思決定にも参加できる</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-medium text-foreground mb-2">
-                  対応が難しい領域
-                </p>
-                <p className="text-sm">
-                  Vue.js/Angular/Nuxt.jsメイン、Node.js/TypeScript以外のバックエンド、ネイティブアプリ開発、週1以上の出社必須など
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* リンク・連絡先 */}
-          <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
-            <h2 className="mb-4 text-2xl font-bold text-foreground">
-              🔗 リンク・連絡先
-            </h2>
-            <div className="space-y-4">
-              <div className="space-y-3">
-                <a
-                  href="https://x.com/nukochan_123"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-foreground transition-colors hover:text-primary"
-                >
-                  <ExternalLink size={16} />
-                  <span>X (Twitter): @nukochan_123</span>
-                </a>
-                <a
-                  href="https://nuko-chan.pages.dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-foreground transition-colors hover:text-primary"
-                >
-                  <ExternalLink size={16} />
-                  <span>技術ブログ: nuko-chan.pages.dev</span>
-                </a>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                案件のご相談は{" "}
-                <a
-                  href="https://x.com/nukochan_123"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground underline-offset-4 hover:underline"
-                >
-                  X (Twitter)
-                </a>{" "}
-                のDMでお気軽にどうぞ！
-              </p>
-            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              案件のご相談は{" "}
+              <a
+                href="https://x.com/nukochan_123"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline-offset-4 hover:underline"
+              >
+                X (Twitter)
+              </a>{" "}
+              のDMでお気軽にどうぞ！
+            </p>
           </div>
         </div>
       </div>
