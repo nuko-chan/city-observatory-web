@@ -13,6 +13,7 @@ import { UVCard } from "@/features/weather/ui/uv-card";
 import { WindCard } from "@/features/weather/ui/wind-card";
 import { SunPathCard } from "@/features/weather/ui/sun-path-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
+import { GlassCard } from "@/components/ui/glass-card";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { cities } from "@/lib/constants/cities";
 import { cn } from "@/lib/utils";
@@ -149,23 +150,23 @@ export default function ComparePage() {
         {/* ヘッダー */}
         <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-in fade-in slide-in-from-top-4 duration-700">
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground/70">
+            <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Atmospheric Comparison
             </div>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+            <h1 className="mt-2 text-[3rem] font-semibold leading-[1.17] tracking-[-2.4px] text-foreground">
               都市比較
             </h1>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background/50 px-6 py-3 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-foreground/30 hover:bg-background/60 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-full bg-background/50 px-6 py-3 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105 hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]"
             >
               ← トップページへ
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background/50 px-6 py-3 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-foreground/30 hover:bg-background/60 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-full bg-background/50 px-6 py-3 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105 hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]"
             >
               About
             </Link>
@@ -174,9 +175,8 @@ export default function ComparePage() {
 
         {/* 都市選択 */}
         <div className="mb-10 grid gap-6 lg:grid-cols-2 animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
-          {/* 左の都市選択 */}
-          <div className="rounded-2xl border border-foreground/10 bg-background/40 p-5 backdrop-blur-xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/50 hover:shadow-lg">
-            <div className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+          <div className="rounded-2xl bg-background/40 p-5 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[16px] transition-all duration-300 hover:bg-background/50 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]">
+            <div className="mb-3 text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Left City
             </div>
             <div className="flex flex-wrap gap-2">
@@ -186,10 +186,10 @@ export default function ComparePage() {
                   type="button"
                   onClick={() => setLeftCityId(city.id)}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105",
+                    "rounded-full px-4 py-2 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105",
                     leftCityId === city.id
-                      ? "border-foreground/30 bg-foreground/10 text-foreground shadow-lg"
-                      : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-foreground/5",
+                      ? "bg-foreground text-background shadow-[0px_0px_0px_1px_transparent]"
+                      : "bg-background/50 text-muted-foreground hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]",
                   )}
                 >
                   {city.label}
@@ -198,9 +198,8 @@ export default function ComparePage() {
             </div>
           </div>
 
-          {/* 右の都市選択 */}
-          <div className="rounded-2xl border border-foreground/10 bg-background/40 p-5 backdrop-blur-xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/50 hover:shadow-lg">
-            <div className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+          <div className="rounded-2xl bg-background/40 p-5 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[16px] transition-all duration-300 hover:bg-background/50 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]">
+            <div className="mb-3 text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Right City
             </div>
             <div className="flex flex-wrap gap-2">
@@ -210,10 +209,10 @@ export default function ComparePage() {
                   type="button"
                   onClick={() => setRightCityId(city.id)}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105",
+                    "rounded-full px-4 py-2 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105",
                     rightCityId === city.id
-                      ? "border-foreground/30 bg-foreground/10 text-foreground shadow-lg"
-                      : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-foreground/5",
+                      ? "bg-foreground text-background shadow-[0px_0px_0px_1px_transparent]"
+                      : "bg-background/50 text-muted-foreground hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]",
                   )}
                 >
                   {city.label}
@@ -225,10 +224,10 @@ export default function ComparePage() {
 
         {/* 地図: 2都市を同時表示 */}
         <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-          <h3 className="mb-4 text-xl font-bold tracking-tight text-foreground">
+          <h3 className="mb-4 text-xl font-semibold tracking-[-0.96px] text-foreground">
             位置関係
           </h3>
-          <div className="relative h-[400px] overflow-hidden rounded-3xl border border-foreground/10 bg-background/50 p-4 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl lg:h-[500px]">
+          <GlassCard className="relative h-[400px] overflow-hidden p-4 lg:h-[500px]">
             <MapView
               center={[
                 (leftCity.lon + rightCity.lon) / 2,
@@ -249,7 +248,7 @@ export default function ComparePage() {
               ]}
               overlay="none"
             />
-          </div>
+          </GlassCard>
         </section>
 
         {/* メインコンテンツ: 横長レイアウト */}
@@ -257,16 +256,15 @@ export default function ComparePage() {
           {/* 左セクション */}
           <section className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700 delay-300">
             <div className="flex items-baseline gap-3">
-              <h2 className="text-3xl font-bold tracking-tight text-foreground">
+              <h2 className="text-[2rem] font-semibold tracking-[-1.28px] text-foreground">
                 {leftCity.label}
               </h2>
-              <span className="text-sm text-muted-foreground">
+              <span className="font-mono text-sm text-muted-foreground [font-feature-settings:'tnum']">
                 {formatLocalTime(leftCity.timezone)}
               </span>
             </div>
 
-            {/* 天気カード（グラスモーフィズム） */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <WeatherCard
                 temperature={leftWeatherView?.snapshot.temperature ?? 0}
                 apparentTemperature={
@@ -289,10 +287,9 @@ export default function ComparePage() {
                 conditionLabel={leftWeatherView?.weatherClassification.label}
                 isLoading={leftWeather.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* UV指数 */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <UVCard
                 uvIndex={leftWeatherView?.snapshot.uvIndex ?? 0}
                 uvIndexMax={leftWeatherView?.uvIndexMax}
@@ -302,21 +299,19 @@ export default function ComparePage() {
                 }
                 isLoading={leftWeather.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* 風向き・風速 */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <WindCard
                 windSpeed={leftWeatherView?.snapshot.windSpeed ?? 0}
                 windDirection={leftWeatherView?.windDirectionRotation ?? 0}
                 directionLabel={leftWeatherView?.windDirectionLabel ?? "不明"}
                 isLoading={leftWeather.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* 日の出/日の入り */}
             {leftWeatherView?.sunriseAt && leftWeatherView.sunsetAt ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <SunPathCard
                   sunrise={leftWeatherView.sunriseAt.toLocaleTimeString(
                     "ja-JP",
@@ -337,12 +332,11 @@ export default function ComparePage() {
                   background={leftWeatherView.sunPhaseBackground}
                   isLoading={leftWeather.isLoading}
                 />
-              </div>
+              </GlassCard>
             ) : null}
 
-            {/* 気温の推移 */}
             {leftWeather.data?.hourly ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <WeatherChart
                   title="気温の推移"
                   range="24h"
@@ -351,14 +345,13 @@ export default function ComparePage() {
                   timeZone={leftWeather.data.timezone}
                   utcOffsetSeconds={leftWeather.data.utc_offset_seconds}
                 />
-              </div>
+              </GlassCard>
             ) : (
-              <div className="h-[320px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+              <div className="h-[320px] w-full animate-pulse rounded-[var(--radius-3xl)] bg-muted/30 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[40px]" />
             )}
 
-            {/* PM2.5グラフ */}
             {leftAirSeries && !leftAir24.isFetching ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <AQChart
                   title="PM2.5 推移"
                   data={leftAirSeries}
@@ -367,25 +360,24 @@ export default function ComparePage() {
                   timeZone={leftAir24.data?.timezone ?? leftCity.timezone}
                   utcOffsetSeconds={leftAir24.data?.utc_offset_seconds}
                 />
-              </div>
+              </GlassCard>
             ) : (
-              <div className="h-[320px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+              <div className="h-[320px] w-full animate-pulse rounded-[var(--radius-3xl)] bg-muted/30 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[40px]" />
             )}
           </section>
 
           {/* 右セクション */}
           <section className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-700 delay-400">
             <div className="flex items-baseline gap-3">
-              <h2 className="text-3xl font-bold tracking-tight text-foreground">
+              <h2 className="text-[2rem] font-semibold tracking-[-1.28px] text-foreground">
                 {rightCity.label}
               </h2>
-              <span className="text-sm text-muted-foreground">
+              <span className="font-mono text-sm text-muted-foreground [font-feature-settings:'tnum']">
                 {formatLocalTime(rightCity.timezone)}
               </span>
             </div>
 
-            {/* 天気カード（グラスモーフィズム） */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <WeatherCard
                 temperature={rightWeatherView?.snapshot.temperature ?? 0}
                 apparentTemperature={
@@ -408,10 +400,9 @@ export default function ComparePage() {
                 conditionLabel={rightWeatherView?.weatherClassification.label}
                 isLoading={rightWeather.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* UV指数 */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <UVCard
                 uvIndex={rightWeatherView?.snapshot.uvIndex ?? 0}
                 uvIndexMax={rightWeatherView?.uvIndexMax}
@@ -421,21 +412,19 @@ export default function ComparePage() {
                 }
                 isLoading={rightWeather.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* 風向き・風速 */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <WindCard
                 windSpeed={rightWeatherView?.snapshot.windSpeed ?? 0}
                 windDirection={rightWeatherView?.windDirectionRotation ?? 0}
                 directionLabel={rightWeatherView?.windDirectionLabel ?? "不明"}
                 isLoading={rightWeather.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* 日の出/日の入り */}
             {rightWeatherView?.sunriseAt && rightWeatherView.sunsetAt ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <SunPathCard
                   sunrise={rightWeatherView.sunriseAt.toLocaleTimeString(
                     "ja-JP",
@@ -459,12 +448,11 @@ export default function ComparePage() {
                   background={rightWeatherView.sunPhaseBackground}
                   isLoading={rightWeather.isLoading}
                 />
-              </div>
+              </GlassCard>
             ) : null}
 
-            {/* 気温の推移 */}
             {rightWeather.data?.hourly ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <WeatherChart
                   title="気温の推移"
                   range="24h"
@@ -473,14 +461,13 @@ export default function ComparePage() {
                   timeZone={rightWeather.data.timezone}
                   utcOffsetSeconds={rightWeather.data.utc_offset_seconds}
                 />
-              </div>
+              </GlassCard>
             ) : (
-              <div className="h-[320px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+              <div className="h-[320px] w-full animate-pulse rounded-[var(--radius-3xl)] bg-muted/30 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[40px]" />
             )}
 
-            {/* PM2.5グラフ */}
             {rightAirSeries && !rightAir24.isFetching ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <AQChart
                   title="PM2.5 推移"
                   data={rightAirSeries}
@@ -489,9 +476,9 @@ export default function ComparePage() {
                   timeZone={rightAir24.data?.timezone ?? rightCity.timezone}
                   utcOffsetSeconds={rightAir24.data?.utc_offset_seconds}
                 />
-              </div>
+              </GlassCard>
             ) : (
-              <div className="h-[320px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+              <div className="h-[320px] w-full animate-pulse rounded-[var(--radius-3xl)] bg-muted/30 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[40px]" />
             )}
           </section>
         </div>
