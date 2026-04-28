@@ -15,6 +15,7 @@ import { WindCard } from "@/features/weather/ui/wind-card";
 import { SunPathCard } from "@/features/weather/ui/sun-path-card";
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { ComfortSummaryCard } from "@/features/derived-metrics/ui/comfort-summary-card";
+import { GlassCard } from "@/components/ui/glass-card";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { getAirQualitySnapshot } from "@/lib/domain/air-quality-snapshot";
 import { calculateComfortScore } from "@/lib/domain/comfort-score";
@@ -131,26 +132,29 @@ export default function Home() {
         {/* ヘッダー */}
         <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-in fade-in slide-in-from-top-4 duration-700">
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground/70">
+            <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               City Observatory
             </div>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+            <h1 className="mt-2 text-[3rem] font-semibold leading-[1.17] tracking-[-2.4px] text-foreground lg:text-[3rem]">
               {activeCity.label}
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              {formatLocalTime(activeCity.timezone)} 現地時刻
+              <span className="font-mono [font-feature-settings:'tnum']">
+                {formatLocalTime(activeCity.timezone)}
+              </span>{" "}
+              現地時刻
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/compare"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background/50 px-6 py-3 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-foreground/30 hover:bg-background/60 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-full bg-background/50 px-6 py-3 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105 hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]"
             >
               都市を比較 →
             </Link>
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background/50 px-6 py-3 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-foreground/30 hover:bg-background/60 hover:shadow-lg hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-full bg-background/50 px-6 py-3 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105 hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]"
             >
               About
             </Link>
@@ -159,8 +163,8 @@ export default function Home() {
 
         {/* 都市選択 */}
         <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
-          <div className="rounded-2xl border border-foreground/10 bg-background/40 p-5 backdrop-blur-xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/50 hover:shadow-lg">
-            <div className="mb-3 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+          <div className="rounded-2xl bg-background/40 p-5 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[16px] transition-all duration-300 hover:bg-background/50 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]">
+            <div className="mb-3 text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Select City
             </div>
             <div className="flex flex-wrap gap-2">
@@ -170,10 +174,10 @@ export default function Home() {
                   type="button"
                   onClick={() => setSelectedCityId(city.id)}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-105",
+                    "rounded-full px-4 py-2 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105",
                     selectedCityId === city.id
-                      ? "border-foreground/30 bg-foreground/10 text-foreground shadow-lg"
-                      : "border-transparent text-muted-foreground hover:border-foreground/20 hover:bg-foreground/5",
+                      ? "bg-foreground text-background shadow-[0px_0px_0px_1px_transparent]"
+                      : "bg-background/50 text-muted-foreground hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]",
                   )}
                 >
                   {city.label}
@@ -187,8 +191,7 @@ export default function Home() {
         <div className="grid min-h-[calc(100vh-16rem)] gap-8 lg:grid-cols-2">
           {/* 左カラム: データカード */}
           <div className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700 delay-200">
-            {/* 天気カード */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <WeatherCard
                 temperature={weatherView?.snapshot.temperature ?? 0}
                 apparentTemperature={
@@ -211,10 +214,9 @@ export default function Home() {
                 conditionLabel={weatherView?.weatherClassification.label}
                 isLoading={weatherQuery.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* UV指数 */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <UVCard
                 uvIndex={weatherView?.snapshot.uvIndex ?? 0}
                 uvIndexMax={weatherView?.uvIndexMax}
@@ -222,29 +224,28 @@ export default function Home() {
                 color={weatherView?.uvClassification.color ?? "hsl(0, 0%, 60%)"}
                 isLoading={weatherQuery.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* 快適度サマリー */}
-            <ComfortSummaryCard
-              comfortScore={comfortScore}
-              outdoorRiskLevel={outdoorRiskLevel}
-              pm25={airSnapshot?.pm25 ?? 0}
-              isLoading={weatherQuery.isLoading || airQuery.isLoading}
-            />
+            <GlassCard>
+              <ComfortSummaryCard
+                comfortScore={comfortScore}
+                outdoorRiskLevel={outdoorRiskLevel}
+                pm25={airSnapshot?.pm25 ?? 0}
+                isLoading={weatherQuery.isLoading || airQuery.isLoading}
+              />
+            </GlassCard>
 
-            {/* 風向き・風速 */}
-            <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+            <GlassCard>
               <WindCard
                 windSpeed={weatherView?.snapshot.windSpeed ?? 0}
                 windDirection={weatherView?.windDirectionRotation ?? 0}
                 directionLabel={weatherView?.windDirectionLabel ?? "不明"}
                 isLoading={weatherQuery.isLoading}
               />
-            </div>
+            </GlassCard>
 
-            {/* 日の出/日の入り */}
             {weatherView?.sunriseAt && weatherView.sunsetAt ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <SunPathCard
                   sunrise={weatherView.sunriseAt.toLocaleTimeString("ja-JP", {
                     hour: "2-digit",
@@ -262,12 +263,11 @@ export default function Home() {
                   background={weatherView.sunPhaseBackground}
                   isLoading={weatherQuery.isLoading}
                 />
-              </div>
+              </GlassCard>
             ) : null}
 
-            {/* 気温の推移 */}
             {weatherQuery.data?.hourly ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <WeatherChart
                   title="気温の推移"
                   range="24h"
@@ -276,14 +276,13 @@ export default function Home() {
                   timeZone={weatherQuery.data.timezone}
                   utcOffsetSeconds={weatherQuery.data.utc_offset_seconds}
                 />
-              </div>
+              </GlassCard>
             ) : (
-              <div className="h-[320px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+              <div className="h-[320px] w-full animate-pulse rounded-[var(--radius-3xl)] bg-muted/30 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[40px]" />
             )}
 
-            {/* PM2.5グラフ */}
             {airSeries && !airQuery.isFetching ? (
-              <div className="group rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl hover:-translate-y-1">
+              <GlassCard>
                 <AQChart
                   title="PM2.5 推移"
                   data={airSeries}
@@ -292,15 +291,15 @@ export default function Home() {
                   timeZone={airQuery.data?.timezone ?? activeCity.timezone}
                   utcOffsetSeconds={airQuery.data?.utc_offset_seconds}
                 />
-              </div>
+              </GlassCard>
             ) : (
-              <div className="h-[320px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+              <div className="h-[320px] w-full animate-pulse rounded-[var(--radius-3xl)] bg-muted/30 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[40px]" />
             )}
           </div>
 
           {/* 右カラム: 地図 */}
           <div className="flex animate-in fade-in slide-in-from-right-8 duration-700 delay-300">
-            <div className="sticky top-8 h-full w-full overflow-hidden rounded-3xl border border-foreground/10 bg-background/50 p-4 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
+            <GlassCard className="sticky top-8 h-full w-full overflow-hidden p-4">
               <div className="absolute left-8 top-8 z-10">
                 <MapOverlayToggle value={mapOverlay} onChange={setMapOverlay} />
               </div>
@@ -316,7 +315,7 @@ export default function Home() {
                 ]}
                 overlay={mapOverlay}
               />
-            </div>
+            </GlassCard>
           </div>
         </div>
       </div>

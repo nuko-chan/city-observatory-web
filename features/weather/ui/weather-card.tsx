@@ -38,36 +38,56 @@ export function WeatherCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span>現在の天気</span>
+          <span className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
+            Temperature
+          </span>
           {conditionLabel ? (
-            <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs text-foreground">
+            <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
               {conditionLabel}
             </span>
           ) : null}
         </div>
         {icon}
       </div>
-      <div className="mt-3 text-5xl font-bold tracking-tight">
-        {Math.round(temperature)}℃
+      <div className="mt-3 font-mono text-5xl font-semibold tracking-[-0.5px] [font-feature-settings:'tnum']">
+        {Math.round(temperature)}
+        <span className="font-mono text-sm font-normal">℃</span>
       </div>
       <div className="mt-1 text-sm text-muted-foreground">
-        体感 {Math.round(apparentTemperature)}℃
+        体感{" "}
+        <span className="font-mono [font-feature-settings:'tnum']">
+          {Math.round(apparentTemperature)}
+        </span>
+        ℃
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
+      <div className="mt-6 grid grid-cols-2 gap-4">
         <div className="flex items-center justify-between text-muted-foreground">
-          <span>湿度</span>
-          <span className="text-foreground">{Math.round(humidity)}%</span>
+          <span className="text-xs font-medium uppercase tracking-[0.2px]">
+            湿度
+          </span>
+          <span className="font-mono text-sm font-semibold text-foreground [font-feature-settings:'tnum']">
+            {Math.round(humidity)}
+            <span className="font-mono text-xs font-normal">%</span>
+          </span>
         </div>
         <div className="flex items-center justify-between text-muted-foreground">
-          <span>風速</span>
-          <span className="text-foreground">{windSpeed.toFixed(1)} m/s</span>
+          <span className="text-xs font-medium uppercase tracking-[0.2px]">
+            風速
+          </span>
+          <span className="font-mono text-sm font-semibold text-foreground [font-feature-settings:'tnum']">
+            {windSpeed.toFixed(1)}
+            <span className="font-mono text-xs font-normal"> m/s</span>
+          </span>
         </div>
         <div className="flex items-center justify-between text-muted-foreground">
-          <span>降水確率</span>
-          <span className="text-foreground">
-            {Math.round(precipitationProbability)}%
+          <span className="text-xs font-medium uppercase tracking-[0.2px]">
+            降水確率
+          </span>
+          <span className="font-mono text-sm font-semibold text-foreground [font-feature-settings:'tnum']">
+            {Math.round(precipitationProbability)}
+            <span className="font-mono text-xs font-normal">%</span>
           </span>
         </div>
       </div>

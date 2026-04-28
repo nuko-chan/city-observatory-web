@@ -27,26 +27,32 @@ export function ComfortSummaryCard({
 }: ComfortSummaryCardProps) {
   if (isLoading) {
     return (
-      <div className="h-[140px] w-full animate-pulse rounded-3xl border border-foreground/10 bg-muted/30 backdrop-blur-2xl" />
+      <div>
+        <div className="h-6 w-24 animate-pulse rounded-md bg-muted/50" />
+        <div className="mt-4 h-10 w-20 animate-pulse rounded-md bg-muted/50" />
+        <div className="mt-6 h-5 w-32 animate-pulse rounded-md bg-muted/50" />
+      </div>
     );
   }
 
   return (
-    <div className="rounded-3xl border border-foreground/10 bg-background/50 p-6 backdrop-blur-2xl">
+    <div>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <div className="text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
-            快適度サマリー
+          <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
+            Comfort
           </div>
           <div className="mt-3 flex items-end gap-2">
-            <div className="text-4xl font-semibold text-foreground">
+            <div className="font-mono text-4xl font-semibold text-foreground [font-feature-settings:'tnum']">
               {comfortScore}
             </div>
-            <div className="pb-1 text-sm text-muted-foreground">/100</div>
+            <div className="pb-1 font-mono text-sm font-normal text-muted-foreground">
+              /100
+            </div>
           </div>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <div className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+          <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
             外出リスク
           </div>
           <div className="flex items-center gap-2 text-sm font-medium text-foreground">
@@ -58,7 +64,11 @@ export function ComfortSummaryCard({
         </div>
       </div>
       <div className="mt-4 text-xs text-muted-foreground">
-        PM2.5: {pm25.toFixed(1)} µg/m³
+        <span className="font-medium uppercase tracking-[0.2px]">PM2.5</span>{" "}
+        <span className="font-mono [font-feature-settings:'tnum']">
+          {pm25.toFixed(1)}
+        </span>{" "}
+        <span className="font-mono text-xs">µg/m³</span>
       </div>
     </div>
   );

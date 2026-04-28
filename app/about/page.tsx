@@ -3,13 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
+import { GlassCard } from "@/components/ui/glass-card";
 
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* ノイズテクスチャ付きメッシュグラデーション */}
       <div className="fixed inset-0 -z-10">
-        {/* SVGノイズフィルター（強化版） */}
         <svg className="absolute h-0 w-0">
           <filter id="noise-about">
             <feTurbulence
@@ -22,7 +22,7 @@ export default function AboutPage() {
           </filter>
         </svg>
 
-        {/* Atmospheric Twilight: 大気の黄昏時の層を表現 */}
+        {/* Atmospheric Twilight */}
         <div
           className="absolute inset-0 opacity-55"
           style={{
@@ -43,13 +43,11 @@ export default function AboutPage() {
           }}
         />
 
-        {/* ノイズテクスチャオーバーレイ（強化） */}
         <div
           className="absolute inset-0 opacity-[0.35] mix-blend-soft-light"
           style={{ filter: "url(#noise-about)" }}
         />
 
-        {/* ビネット効果（周辺を暗く） */}
         <div
           className="absolute inset-0"
           style={{
@@ -58,7 +56,6 @@ export default function AboutPage() {
           }}
         />
 
-        {/* ベース背景 */}
         <div className="absolute inset-0 -z-10 bg-background" />
       </div>
 
@@ -66,16 +63,16 @@ export default function AboutPage() {
         {/* ヘッダー */}
         <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-in fade-in slide-in-from-top-4 duration-700">
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground/70">
+            <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               About
             </div>
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
-              👋 はじめまして
+            <h1 className="mt-2 text-[3rem] font-semibold leading-[1.17] tracking-[-2.4px] text-foreground">
+              はじめまして
             </h1>
           </div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background/50 px-6 py-3 text-sm font-medium backdrop-blur-xl transition-all duration-300 hover:border-foreground/30 hover:bg-background/60 hover:shadow-lg hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-full bg-background/50 px-6 py-3 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105 hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]"
           >
             ← トップページへ
           </Link>
@@ -83,18 +80,17 @@ export default function AboutPage() {
 
         {/* メインコンテンツ */}
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-          {/* プロフィール */}
-          <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
+          <GlassCard className="p-8">
             <div className="flex items-center gap-6">
               <Image
                 src="/nuko.png"
                 alt="プロフィールアイコン"
                 width={120}
                 height={120}
-                className="h-24 w-24 rounded-full object-cover ring-4 ring-foreground/10 lg:h-32 lg:w-32"
+                className="h-24 w-24 rounded-full object-cover shadow-[0px_0px_0px_4px_oklch(from_var(--foreground)_l_c_h/10%)] lg:h-32 lg:w-32"
               />
               <div>
-                <h2 className="mb-2 text-2xl font-bold text-foreground">
+                <h2 className="mb-2 text-[1.5rem] font-semibold tracking-[-0.96px] text-foreground">
                   nuko-chan
                 </h2>
                 <p className="text-lg text-muted-foreground">
@@ -102,12 +98,11 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-          </div>
+          </GlassCard>
 
-          {/* リンク集 */}
-          <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
-            <h2 className="mb-4 text-2xl font-bold text-foreground">
-              🔗 リンク
+          <GlassCard className="p-8">
+            <h2 className="mb-4 text-[1.5rem] font-semibold tracking-[-0.96px] text-foreground">
+              リンク
             </h2>
             <div className="space-y-3">
               <a
@@ -150,14 +145,13 @@ export default function AboutPage() {
               </a>{" "}
               をご覧ください。
             </p>
-          </div>
+          </GlassCard>
 
-          {/* 連絡先 */}
-          <div className="rounded-3xl border border-foreground/10 bg-background/50 p-8 backdrop-blur-2xl transition-all duration-300 hover:border-foreground/20 hover:bg-background/60 hover:shadow-2xl">
-            <h2 className="mb-4 text-2xl font-bold text-foreground">
-              💬 連絡先
+          <GlassCard className="p-8">
+            <h2 className="mb-4 text-[1.5rem] font-semibold tracking-[-0.96px] text-foreground">
+              連絡先
             </h2>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="leading-relaxed text-muted-foreground">
               案件のご相談は{" "}
               <a
                 href="https://x.com/nukochan_123"
@@ -169,7 +163,7 @@ export default function AboutPage() {
               </a>{" "}
               のDMでお気軽にどうぞ！
             </p>
-          </div>
+          </GlassCard>
         </div>
       </div>
     </div>

@@ -70,20 +70,20 @@ export function AQChart({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <div className="text-sm font-medium text-foreground">
+        <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
           {title ?? "大気質チャート"}
         </div>
         {onRangeChange && (
-          <div className="flex items-center gap-2 rounded-full bg-muted/30 p-1 text-xs">
+          <div className="flex items-center gap-1 rounded-md bg-muted/30 p-1 text-xs">
             {(["24h", "5d"] as const).map((value) => (
               <button
                 key={value}
                 type="button"
                 onClick={() => onRangeChange(value)}
                 className={cn(
-                  "rounded-full px-3 py-1 font-medium transition",
+                  "rounded-md px-3 py-1 font-medium uppercase tracking-[0.2px] transition",
                   range === value
-                    ? "bg-background/60 text-foreground shadow"
+                    ? "bg-foreground text-background shadow"
                     : "text-muted-foreground",
                 )}
               >
@@ -100,31 +100,42 @@ export function AQChart({
               dataKey="time"
               tickLine={false}
               axisLine={false}
-              stroke="hsl(var(--muted-foreground))"
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+              stroke="oklch(var(--muted-foreground))"
+              tick={{
+                fill: "oklch(var(--muted-foreground))",
+                fontSize: 12,
+                fontFamily: "var(--font-geist-mono)",
+              }}
             />
             <YAxis
               tickLine={false}
               axisLine={false}
               width={32}
-              stroke="hsl(var(--muted-foreground))"
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+              stroke="oklch(var(--muted-foreground))"
+              tick={{
+                fill: "oklch(var(--muted-foreground))",
+                fontSize: 12,
+                fontFamily: "var(--font-geist-mono)",
+              }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(var(--background))",
-                border: "1px solid hsl(var(--border))",
+                backgroundColor: "oklch(var(--background) / 50%)",
+                border: "none",
                 borderRadius: "8px",
+                boxShadow:
+                  "0px 0px 0px 1px oklch(var(--foreground) / 10%), 0px 2px 4px oklch(var(--foreground) / 4%)",
+                backdropFilter: "blur(40px)",
               }}
-              labelStyle={{ color: "hsl(var(--foreground))" }}
+              labelStyle={{ color: "oklch(var(--foreground))" }}
             />
             <Line
               type="monotone"
               dataKey="value"
-              stroke="hsl(280, 75%, 60%)"
+              stroke="oklch(var(--chart-3))"
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 6, fill: "hsl(280, 75%, 60%)" }}
+              activeDot={{ r: 6, fill: "oklch(var(--chart-3))" }}
             />
           </LineChart>
         </ResponsiveContainer>
