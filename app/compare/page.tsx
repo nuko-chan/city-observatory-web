@@ -148,7 +148,7 @@ export default function ComparePage() {
 
       <div className="mx-auto min-h-screen w-full px-6 py-8 lg:px-12 lg:py-12">
         {/* ヘッダー */}
-        <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-in fade-in slide-in-from-top-4 duration-700">
+        <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-card-in">
           <div>
             <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Atmospheric Comparison
@@ -174,7 +174,7 @@ export default function ComparePage() {
         </header>
 
         {/* 都市選択 */}
-        <div className="mb-10 grid gap-6 lg:grid-cols-2 animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
+        <div className="mb-10 grid gap-6 lg:grid-cols-2 animate-card-in [animation-delay:100ms]">
           <div className="rounded-2xl bg-background/40 p-5 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[16px] transition-all duration-300 hover:bg-background/50 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]">
             <div className="mb-3 text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Left City
@@ -223,7 +223,7 @@ export default function ComparePage() {
         </div>
 
         {/* 地図: 2都市を同時表示 */}
-        <section className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+        <section className="animate-card-in [animation-delay:200ms]">
           <h3 className="mb-4 text-xl font-semibold tracking-[-0.96px] text-foreground">
             位置関係
           </h3>
@@ -254,7 +254,7 @@ export default function ComparePage() {
         {/* メインコンテンツ: 横長レイアウト */}
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {/* 左セクション */}
-          <section className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700 delay-300">
+          <section className="space-y-6 animate-card-in [animation-delay:300ms]">
             <div className="flex items-baseline gap-3">
               <h2 className="text-[2rem] font-semibold tracking-[-1.28px] text-foreground">
                 {leftCity.label}
@@ -285,6 +285,7 @@ export default function ComparePage() {
                   ) : undefined
                 }
                 conditionLabel={leftWeatherView?.weatherClassification.label}
+                badgeColor={leftWeatherView?.weatherClassification.badgeColor}
                 isLoading={leftWeather.isLoading}
               />
             </GlassCard>
@@ -367,7 +368,7 @@ export default function ComparePage() {
           </section>
 
           {/* 右セクション */}
-          <section className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-700 delay-400">
+          <section className="space-y-6 animate-card-in [animation-delay:400ms]">
             <div className="flex items-baseline gap-3">
               <h2 className="text-[2rem] font-semibold tracking-[-1.28px] text-foreground">
                 {rightCity.label}
@@ -398,6 +399,7 @@ export default function ComparePage() {
                   ) : undefined
                 }
                 conditionLabel={rightWeatherView?.weatherClassification.label}
+                badgeColor={rightWeatherView?.weatherClassification.badgeColor}
                 isLoading={rightWeather.isLoading}
               />
             </GlassCard>

@@ -100,9 +100,9 @@ export function AQChart({
               dataKey="time"
               tickLine={false}
               axisLine={false}
-              stroke="oklch(var(--muted-foreground))"
+              stroke="var(--muted-foreground)"
               tick={{
-                fill: "oklch(var(--muted-foreground))",
+                fill: "var(--muted-foreground)",
                 fontSize: 12,
                 fontFamily: "var(--font-geist-mono)",
               }}
@@ -111,31 +111,32 @@ export function AQChart({
               tickLine={false}
               axisLine={false}
               width={32}
-              stroke="oklch(var(--muted-foreground))"
+              stroke="var(--muted-foreground)"
               tick={{
-                fill: "oklch(var(--muted-foreground))",
+                fill: "var(--muted-foreground)",
                 fontSize: 12,
                 fontFamily: "var(--font-geist-mono)",
               }}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "oklch(var(--background) / 50%)",
+                backgroundColor:
+                  "color-mix(in oklch, var(--background) 50%, transparent)",
                 border: "none",
                 borderRadius: "8px",
                 boxShadow:
-                  "0px 0px 0px 1px oklch(var(--foreground) / 10%), 0px 2px 4px oklch(var(--foreground) / 4%)",
+                  "0px 0px 0px 1px color-mix(in oklch, var(--foreground) 10%, transparent), 0px 2px 4px color-mix(in oklch, var(--foreground) 4%, transparent)",
                 backdropFilter: "blur(40px)",
               }}
-              labelStyle={{ color: "oklch(var(--foreground))" }}
+              labelStyle={{ color: "var(--foreground)" }}
             />
             <Line
               type="monotone"
               dataKey="value"
-              stroke="oklch(var(--chart-3))"
+              stroke="var(--chart-3)"
               strokeWidth={3}
               dot={false}
-              activeDot={{ r: 6, fill: "oklch(var(--chart-3))" }}
+              activeDot={{ r: 6, fill: "var(--chart-3)" }}
             />
           </LineChart>
         </ResponsiveContainer>

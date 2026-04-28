@@ -35,6 +35,6 @@ describe("getUVClassification", () => {
   it("returns label and color", () => {
     const classification = getUVClassification(6.5);
     expect(classification.label).toBe("高い");
-    expect(classification.color).toContain("hsl");
+    expect(classification.color).toContain("oklch");
   });
 });

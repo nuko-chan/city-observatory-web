@@ -130,7 +130,7 @@ export default function Home() {
 
       <div className="mx-auto min-h-screen w-full px-6 py-8 lg:px-12 lg:py-12">
         {/* ヘッダー */}
-        <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-in fade-in slide-in-from-top-4 duration-700">
+        <header className="animate-card-in mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div>
             <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               City Observatory
@@ -162,7 +162,10 @@ export default function Home() {
         </header>
 
         {/* 都市選択 */}
-        <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700 delay-100">
+        <div
+          className="animate-card-in mb-10"
+          style={{ animationDelay: "100ms" }}
+        >
           <div className="rounded-2xl bg-background/40 p-5 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/10%)] backdrop-blur-[16px] transition-all duration-300 hover:bg-background/50 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]">
             <div className="mb-3 text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               Select City
@@ -190,8 +193,11 @@ export default function Home() {
         {/* メインコンテンツ */}
         <div className="grid min-h-[calc(100vh-16rem)] gap-8 lg:grid-cols-2">
           {/* 左カラム: データカード */}
-          <div className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700 delay-200">
-            <GlassCard>
+          <div className="space-y-6">
+            <GlassCard
+              className="animate-card-in"
+              style={{ animationDelay: "200ms" }}
+            >
               <WeatherCard
                 temperature={weatherView?.snapshot.temperature ?? 0}
                 apparentTemperature={
@@ -212,11 +218,15 @@ export default function Home() {
                   ) : undefined
                 }
                 conditionLabel={weatherView?.weatherClassification.label}
+                badgeColor={weatherView?.weatherClassification.badgeColor}
                 isLoading={weatherQuery.isLoading}
               />
             </GlassCard>
 
-            <GlassCard>
+            <GlassCard
+              className="animate-card-in"
+              style={{ animationDelay: "300ms" }}
+            >
               <UVCard
                 uvIndex={weatherView?.snapshot.uvIndex ?? 0}
                 uvIndexMax={weatherView?.uvIndexMax}
@@ -226,7 +236,10 @@ export default function Home() {
               />
             </GlassCard>
 
-            <GlassCard>
+            <GlassCard
+              className="animate-card-in"
+              style={{ animationDelay: "400ms" }}
+            >
               <ComfortSummaryCard
                 comfortScore={comfortScore}
                 outdoorRiskLevel={outdoorRiskLevel}
@@ -235,7 +248,10 @@ export default function Home() {
               />
             </GlassCard>
 
-            <GlassCard>
+            <GlassCard
+              className="animate-card-in"
+              style={{ animationDelay: "500ms" }}
+            >
               <WindCard
                 windSpeed={weatherView?.snapshot.windSpeed ?? 0}
                 windDirection={weatherView?.windDirectionRotation ?? 0}
@@ -245,7 +261,10 @@ export default function Home() {
             </GlassCard>
 
             {weatherView?.sunriseAt && weatherView.sunsetAt ? (
-              <GlassCard>
+              <GlassCard
+                className="animate-card-in"
+                style={{ animationDelay: "600ms" }}
+              >
                 <SunPathCard
                   sunrise={weatherView.sunriseAt.toLocaleTimeString("ja-JP", {
                     hour: "2-digit",
@@ -267,7 +286,10 @@ export default function Home() {
             ) : null}
 
             {weatherQuery.data?.hourly ? (
-              <GlassCard>
+              <GlassCard
+                className="animate-card-in"
+                style={{ animationDelay: "700ms" }}
+              >
                 <WeatherChart
                   title="気温の推移"
                   range="24h"
@@ -282,7 +304,10 @@ export default function Home() {
             )}
 
             {airSeries && !airQuery.isFetching ? (
-              <GlassCard>
+              <GlassCard
+                className="animate-card-in"
+                style={{ animationDelay: "800ms" }}
+              >
                 <AQChart
                   title="PM2.5 推移"
                   data={airSeries}
@@ -298,8 +323,11 @@ export default function Home() {
           </div>
 
           {/* 右カラム: 地図 */}
-          <div className="flex animate-in fade-in slide-in-from-right-8 duration-700 delay-300">
-            <GlassCard className="sticky top-8 h-full w-full overflow-hidden p-4">
+          <div className="flex">
+            <GlassCard
+              className="animate-card-in sticky top-8 h-full w-full overflow-hidden p-4"
+              style={{ animationDelay: "300ms" }}
+            >
               <div className="absolute left-8 top-8 z-10">
                 <MapOverlayToggle value={mapOverlay} onChange={setMapOverlay} />
               </div>

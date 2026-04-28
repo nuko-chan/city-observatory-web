@@ -61,7 +61,7 @@ export default function AboutPage() {
 
       <div className="mx-auto min-h-screen w-full max-w-4xl px-6 py-8 lg:px-12 lg:py-12">
         {/* ヘッダー */}
-        <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-in fade-in slide-in-from-top-4 duration-700">
+        <header className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-between animate-card-in">
           <div>
             <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
               About
@@ -79,8 +79,11 @@ export default function AboutPage() {
         </header>
 
         {/* メインコンテンツ */}
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-          <GlassCard className="p-8">
+        <div className="space-y-6">
+          <GlassCard
+            className="animate-card-in p-8"
+            style={{ animationDelay: "100ms" }}
+          >
             <div className="flex items-center gap-6">
               <Image
                 src="/nuko.png"
@@ -100,7 +103,10 @@ export default function AboutPage() {
             </div>
           </GlassCard>
 
-          <GlassCard className="p-8">
+          <GlassCard
+            className="animate-card-in p-8"
+            style={{ animationDelay: "200ms" }}
+          >
             <h2 className="mb-4 text-[1.5rem] font-semibold tracking-[-0.96px] text-foreground">
               リンク
             </h2>
@@ -147,7 +153,10 @@ export default function AboutPage() {
             </p>
           </GlassCard>
 
-          <GlassCard className="p-8">
+          <GlassCard
+            className="animate-card-in p-8"
+            style={{ animationDelay: "300ms" }}
+          >
             <h2 className="mb-4 text-[1.5rem] font-semibold tracking-[-0.96px] text-foreground">
               連絡先
             </h2>

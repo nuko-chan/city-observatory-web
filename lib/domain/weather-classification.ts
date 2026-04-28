@@ -28,6 +28,7 @@ type WeatherClassification = {
   label: string;
   iconKey: WeatherIconKey;
   background: string;
+  badgeColor: string;
 };
 
 const weatherLabels: Record<WeatherCondition, string> = {
@@ -75,6 +76,22 @@ const weatherBackgrounds: Record<WeatherCondition, string> = {
   unknown: "linear-gradient(to bottom, #9CA3AF, #E5E7EB)",
 };
 
+// Environmental Semantic Colors (DESIGN.md) — 天気条件の深刻度にマッピング
+const weatherBadgeColors: Record<WeatherCondition, string> = {
+  clear: "oklch(0.72 0.14 180)", // teal
+  "mostly-clear": "oklch(0.72 0.14 180)", // teal
+  "partly-cloudy": "oklch(0.75 0.12 220)", // sky
+  overcast: "oklch(0.75 0.12 220)", // sky
+  fog: "oklch(0.80 0.16 85)", // amber
+  drizzle: "oklch(0.75 0.12 220)", // sky
+  rain: "oklch(0.80 0.16 85)", // amber
+  snow: "oklch(0.80 0.16 85)", // amber
+  "rain-showers": "oklch(0.72 0.19 55)", // orange
+  "snow-showers": "oklch(0.72 0.19 55)", // orange
+  thunderstorm: "oklch(0.62 0.24 25)", // red
+  unknown: "oklch(0.75 0.12 220)", // sky
+};
+
 export function getWeatherCondition(code: number): WeatherCondition {
   // Open-Meteoのweathercode定義に合わせた分類
   if (code === 0) return "clear";
@@ -98,6 +115,7 @@ export function getWeatherClassification(code: number): WeatherClassification {
     label: weatherLabels[condition],
     iconKey: weatherIcons[condition],
     background: weatherBackgrounds[condition],
+    badgeColor: weatherBadgeColors[condition],
   };
 }
 

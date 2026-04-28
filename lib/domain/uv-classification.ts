@@ -14,12 +14,13 @@ const uvLabels: Record<UVLevel, string> = {
   extreme: "極端に高い",
 };
 
+// Environmental Semantic Colors (DESIGN.md)
 const uvColors: Record<UVLevel, string> = {
-  low: "hsl(120, 60%, 50%)",
-  moderate: "hsl(60, 100%, 50%)",
-  high: "hsl(30, 100%, 50%)",
-  "very-high": "hsl(0, 100%, 50%)",
-  extreme: "hsl(270, 100%, 40%)",
+  low: "oklch(0.72 0.14 180)",
+  moderate: "oklch(0.80 0.16 85)",
+  high: "oklch(0.72 0.19 55)",
+  "very-high": "oklch(0.62 0.24 25)",
+  extreme: "oklch(0.62 0.24 25)",
 };
 
 export function classifyUVIndex(index: number): UVLevel {
