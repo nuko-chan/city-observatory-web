@@ -285,6 +285,7 @@ export default function ComparePage() {
                   ) : undefined
                 }
                 conditionLabel={leftWeatherView?.weatherClassification.label}
+                badgeColor={leftWeatherView?.weatherClassification.badgeColor}
                 isLoading={leftWeather.isLoading}
               />
             </GlassCard>
@@ -398,6 +399,7 @@ export default function ComparePage() {
                   ) : undefined
                 }
                 conditionLabel={rightWeatherView?.weatherClassification.label}
+                badgeColor={rightWeatherView?.weatherClassification.badgeColor}
                 isLoading={rightWeather.isLoading}
               />
             </GlassCard>

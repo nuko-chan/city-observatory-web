@@ -5,6 +5,15 @@ type WindCardProps = {
   isLoading?: boolean;
 };
 
+// 風速に基づく Environmental Semantic Color
+function windSpeedColor(speed: number): string {
+  if (speed < 3) return "oklch(0.72 0.14 180)"; // teal — 穏やか
+  if (speed < 8) return "oklch(0.75 0.12 220)"; // sky — やや強い
+  if (speed < 15) return "oklch(0.80 0.16 85)"; // amber — 強い
+  if (speed < 25) return "oklch(0.72 0.19 55)"; // orange — 非常に強い
+  return "oklch(0.62 0.24 25)"; // red — 暴風
+}
+
 export function WindCard({
   windSpeed,
   windDirection,
@@ -27,7 +36,13 @@ export function WindCard({
         <span className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
           Wind
         </span>
-        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
+        <span
+          className="rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]"
+          style={{
+            backgroundColor: `color-mix(in oklch, ${windSpeedColor(windSpeed)} 15%, transparent)`,
+            color: windSpeedColor(windSpeed),
+          }}
+        >
           {directionLabel}
         </span>
       </div>

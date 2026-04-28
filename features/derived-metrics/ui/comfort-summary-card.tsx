@@ -12,12 +12,28 @@ const riskLabels: Record<ComfortSummaryCardProps["outdoorRiskLevel"], string> =
     high: "高",
   };
 
+// Environmental Semantic Colors (DESIGN.md)
 const riskColors: Record<ComfortSummaryCardProps["outdoorRiskLevel"], string> =
   {
-    low: "bg-foreground/30",
-    medium: "bg-foreground/50",
-    high: "bg-foreground/70",
+    low: "oklch(0.72 0.14 180)",
+    medium: "oklch(0.80 0.16 85)",
+    high: "oklch(0.62 0.24 25)",
   };
+
+function pm25Color(pm25: number): string {
+  if (pm25 <= 12) return "oklch(0.72 0.14 180)"; // teal — good
+  if (pm25 <= 35.4) return "oklch(0.80 0.16 85)"; // amber — moderate
+  if (pm25 <= 55.4) return "oklch(0.72 0.19 55)"; // orange — unhealthy
+  return "oklch(0.62 0.24 25)"; // red — hazardous
+}
+
+function comfortScoreColor(score: number): string {
+  if (score >= 80) return "oklch(0.72 0.14 180)"; // teal — excellent
+  if (score >= 60) return "oklch(0.75 0.12 220)"; // sky — good
+  if (score >= 40) return "oklch(0.80 0.16 85)"; // amber — moderate
+  if (score >= 20) return "oklch(0.72 0.19 55)"; // orange — poor
+  return "oklch(0.62 0.24 25)"; // red — hazardous
+}
 
 export function ComfortSummaryCard({
   comfortScore,
@@ -43,7 +59,10 @@ export function ComfortSummaryCard({
             Comfort
           </div>
           <div className="mt-3 flex items-end gap-2">
-            <div className="font-mono text-4xl font-semibold text-foreground [font-feature-settings:'tnum']">
+            <div
+              className="font-mono text-4xl font-semibold [font-feature-settings:'tnum']"
+              style={{ color: comfortScoreColor(comfortScore) }}
+            >
               {comfortScore}
             </div>
             <div className="pb-1 font-mono text-sm font-normal text-muted-foreground">
@@ -55,20 +74,28 @@ export function ComfortSummaryCard({
           <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
             外出リスク
           </div>
-          <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+          <div className="flex items-center gap-2 text-sm font-medium">
             <span
-              className={`h-2 w-2 rounded-full ${riskColors[outdoorRiskLevel]}`}
+              className="h-2 w-2 rounded-full"
+              style={{ backgroundColor: riskColors[outdoorRiskLevel] }}
             />
-            {riskLabels[outdoorRiskLevel]}
+            <span style={{ color: riskColors[outdoorRiskLevel] }}>
+              {riskLabels[outdoorRiskLevel]}
+            </span>
           </div>
         </div>
       </div>
-      <div className="mt-4 text-xs text-muted-foreground">
-        <span className="font-medium uppercase tracking-[0.2px]">PM2.5</span>{" "}
-        <span className="font-mono [font-feature-settings:'tnum']">
-          {pm25.toFixed(1)}
-        </span>{" "}
-        <span className="font-mono text-xs">µg/m³</span>
+      <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+        <span className="font-medium uppercase tracking-[0.2px]">PM2.5</span>
+        <span
+          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-xs font-medium [font-feature-settings:'tnum']"
+          style={{
+            backgroundColor: `color-mix(in oklch, ${pm25Color(pm25)} 15%, transparent)`,
+            color: pm25Color(pm25),
+          }}
+        >
+          {pm25.toFixed(1)} µg/m³
+        </span>
       </div>
     </div>
   );

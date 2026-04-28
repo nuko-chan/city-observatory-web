@@ -29,7 +29,13 @@ export function UVCard({
         <span className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
           UV Index
         </span>
-        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
+        <span
+          className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]"
+          style={{
+            backgroundColor: `color-mix(in oklch, ${color} 15%, transparent)`,
+            color,
+          }}
+        >
           {label}
         </span>
       </div>

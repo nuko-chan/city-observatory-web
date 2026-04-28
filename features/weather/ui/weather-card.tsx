@@ -8,6 +8,7 @@ type WeatherCardProps = {
   precipitationProbability: number;
   icon?: ReactNode;
   conditionLabel?: string;
+  badgeColor?: string;
   isLoading?: boolean;
 };
 
@@ -19,6 +20,7 @@ export function WeatherCard({
   precipitationProbability,
   icon,
   conditionLabel,
+  badgeColor,
   isLoading = false,
 }: WeatherCardProps) {
   if (isLoading) {
@@ -44,7 +46,20 @@ export function WeatherCard({
             Temperature
           </span>
           {conditionLabel ? (
-            <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
+            <span
+              className="rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]"
+              style={
+                badgeColor
+                  ? {
+                      backgroundColor: `color-mix(in oklch, ${badgeColor} 15%, transparent)`,
+                      color: badgeColor,
+                    }
+                  : {
+                      backgroundColor:
+                        "oklch(from var(--foreground) l c h / 10%)",
+                    }
+              }
+            >
               {conditionLabel}
             </span>
           ) : null}

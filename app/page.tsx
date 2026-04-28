@@ -212,6 +212,7 @@ export default function Home() {
                   ) : undefined
                 }
                 conditionLabel={weatherView?.weatherClassification.label}
+                badgeColor={weatherView?.weatherClassification.badgeColor}
                 isLoading={weatherQuery.isLoading}
               />
             </GlassCard>
