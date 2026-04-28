@@ -25,17 +25,21 @@ export function UVCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>UV指数</span>
-        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs text-foreground">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
+          UV Index
+        </span>
+        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
           {label}
         </span>
       </div>
       <div className="mt-3 flex items-end gap-2">
-        <span className="text-5xl font-bold tracking-tight">
+        <span className="font-mono text-5xl font-semibold tracking-[-0.5px] [font-feature-settings:'tnum']">
           {uvIndex.toFixed(1)}
         </span>
-        <span className="text-sm text-muted-foreground">/ 11+</span>
+        <span className="font-mono text-sm font-normal text-muted-foreground">
+          / 11+
+        </span>
       </div>
       <div className="mt-6">
         <div className="h-2 w-full rounded-full bg-muted/40">
@@ -50,7 +54,12 @@ export function UVCard({
         <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
           <span>低い</span>
           {uvIndexMax !== undefined ? (
-            <span>最大 {uvIndexMax.toFixed(1)}</span>
+            <span>
+              最大{" "}
+              <span className="font-mono [font-feature-settings:'tnum']">
+                {uvIndexMax.toFixed(1)}
+              </span>
+            </span>
           ) : (
             <span>極端</span>
           )}

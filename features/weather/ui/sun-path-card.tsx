@@ -29,9 +29,11 @@ export function SunPathCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>日の出/日の入り</span>
-        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs text-foreground">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
+          Sun Path
+        </span>
+        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
           {phaseLabel}
         </span>
       </div>
@@ -73,7 +75,9 @@ export function SunPathCard({
         </div>
         <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
           <span>現在 {nowLabel}</span>
-          <span>{Math.round(progress * 100)}%</span>
+          <span className="font-mono [font-feature-settings:'tnum']">
+            {Math.round(progress * 100)}%
+          </span>
         </div>
       </div>
     </div>

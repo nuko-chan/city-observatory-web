@@ -23,14 +23,16 @@ export function WindCard({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-sm text-muted-foreground">
-        <span>風向き・風速</span>
-        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs text-foreground">
+      <div className="flex items-center justify-between">
+        <span className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
+          Wind
+        </span>
+        <span className="rounded-full bg-foreground/10 px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]">
           {directionLabel}
         </span>
       </div>
       <div className="mt-4 flex items-center gap-4">
-        <div className="relative flex h-16 w-16 items-center justify-center rounded-full border border-foreground/15 bg-background/60">
+        <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-background/60 shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/15%)]">
           <div className="absolute h-10 w-10 rounded-full border border-dashed border-foreground/20" />
           <div
             className="absolute h-12 w-12 transition-transform duration-700"
@@ -41,13 +43,15 @@ export function WindCard({
           </div>
         </div>
         <div>
-          <div className="text-4xl font-bold tracking-tight">
+          <div className="font-mono text-4xl font-semibold tracking-[-0.5px] [font-feature-settings:'tnum']">
             {windSpeed.toFixed(1)}
           </div>
-          <div className="text-sm text-muted-foreground">m/s</div>
+          <div className="font-mono text-sm font-normal text-muted-foreground">
+            m/s
+          </div>
         </div>
       </div>
-      <div className="mt-5 flex items-center justify-between text-xs text-muted-foreground">
+      <div className="mt-5 flex items-center justify-between text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
         <span>北</span>
         <span>南</span>
       </div>
