@@ -1,8 +1,11 @@
+import { cn } from "@/lib/utils";
+
 type ComfortSummaryCardProps = {
   comfortScore: number;
   outdoorRiskLevel: "low" | "medium" | "high";
   pm25: number;
   isLoading?: boolean;
+  compact?: boolean;
 };
 
 const riskLabels: Record<ComfortSummaryCardProps["outdoorRiskLevel"], string> =
@@ -40,6 +43,7 @@ export function ComfortSummaryCard({
   outdoorRiskLevel,
   pm25,
   isLoading,
+  compact = false,
 }: ComfortSummaryCardProps) {
   if (isLoading) {
     return (
@@ -60,7 +64,10 @@ export function ComfortSummaryCard({
           </div>
           <div className="mt-3 flex items-end gap-2">
             <div
-              className="font-mono text-4xl font-semibold [font-feature-settings:'tnum']"
+              className={cn(
+                "font-mono font-semibold [font-feature-settings:'tnum']",
+                compact ? "text-3xl" : "text-4xl",
+              )}
               style={{ color: comfortScoreColor(comfortScore) }}
             >
               {comfortScore}
@@ -72,7 +79,7 @@ export function ComfortSummaryCard({
         </div>
         <div className="flex flex-col items-end gap-2">
           <div className="text-xs font-medium uppercase tracking-[0.2px] text-muted-foreground">
-            外出リスク
+            リスク
           </div>
           <div className="flex items-center gap-2 text-sm font-medium">
             <span

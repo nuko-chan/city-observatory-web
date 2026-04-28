@@ -4,6 +4,7 @@ type UVCardProps = {
   label: string;
   color: string;
   isLoading?: boolean;
+  compact?: boolean;
 };
 
 export function UVCard({
@@ -12,6 +13,7 @@ export function UVCard({
   label,
   color,
   isLoading = false,
+  compact = false,
 }: UVCardProps) {
   if (isLoading) {
     return (
@@ -43,11 +45,13 @@ export function UVCard({
         <span className="font-mono text-5xl font-semibold tracking-[-0.5px] [font-feature-settings:'tnum']">
           {uvIndex.toFixed(1)}
         </span>
-        <span className="font-mono text-sm font-normal text-muted-foreground">
-          / 11+
-        </span>
+        {!compact && (
+          <span className="font-mono text-sm font-normal text-muted-foreground">
+            / 11+
+          </span>
+        )}
       </div>
-      <div className="mt-6">
+      <div className={compact ? "mt-4" : "mt-6"}>
         <div className="h-2 w-full rounded-full bg-muted/40">
           <div
             className="h-2 rounded-full transition-all duration-700"
@@ -57,19 +61,21 @@ export function UVCard({
             }}
           />
         </div>
-        <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-          <span>低い</span>
-          {uvIndexMax !== undefined ? (
-            <span>
-              最大{" "}
-              <span className="font-mono [font-feature-settings:'tnum']">
-                {uvIndexMax.toFixed(1)}
+        {!compact && (
+          <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+            <span>低い</span>
+            {uvIndexMax !== undefined ? (
+              <span>
+                最大{" "}
+                <span className="font-mono [font-feature-settings:'tnum']">
+                  {uvIndexMax.toFixed(1)}
+                </span>
               </span>
-            </span>
-          ) : (
-            <span>極端</span>
-          )}
-        </div>
+            ) : (
+              <span>極端</span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

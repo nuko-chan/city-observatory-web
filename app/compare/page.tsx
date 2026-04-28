@@ -164,12 +164,6 @@ export default function ComparePage() {
             >
               ← トップページへ
             </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 rounded-full bg-background/50 px-6 py-3 text-sm font-medium shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/20%)] backdrop-blur-[16px] transition-all duration-300 hover:scale-105 hover:bg-background/60 hover:shadow-[0px_0px_0px_1px_oklch(from_var(--foreground)_l_c_h/30%),0px_4px_12px_oklch(from_var(--foreground)_l_c_h/8%)]"
-            >
-              About
-            </Link>
           </div>
         </header>
 
