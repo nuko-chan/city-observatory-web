@@ -16,7 +16,7 @@ import { ComfortSummaryCard } from "@/features/derived-metrics/ui/comfort-summar
 import { useAirQualityData } from "@/features/air-quality/model/use-air-quality-data";
 import { GlassCard } from "@/components/ui/glass-card";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { useRealtimeClock } from "@/lib/hooks/use-realtime-clock";
+import { RealtimeClock } from "@/lib/hooks/use-realtime-clock";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { getAirQualitySnapshot } from "@/lib/domain/air-quality-snapshot";
 import { calculateComfortScore } from "@/lib/domain/comfort-score";
@@ -37,7 +37,6 @@ export default function Home() {
 
   const activeCity =
     cities.find((city) => city.id === selectedCityId) ?? cities[0];
-  const clock = useRealtimeClock(activeCity.timezone);
 
   const weatherQuery = useWeatherData(activeCity, "24h");
   const airQuery = useAirQualityData(activeCity, "24h");
@@ -73,6 +72,8 @@ export default function Home() {
   );
 
   const bgColor = temperatureToColor(weatherView?.snapshot.temperature ?? 20);
+  const bgHue = parseInt(bgColor);
+  const bgSat = bgColor.split(", ")[1];
 
   return (
     <div className="relative min-h-screen overflow-hidden">
@@ -104,8 +105,8 @@ export default function Home() {
           className="absolute inset-0 opacity-30 transition-all duration-1000"
           style={{
             background: `
-              radial-gradient(circle at 60% 40%, hsl(${(parseInt(bgColor.split(" ")[0]) + 30) % 360} ${bgColor.split(" ")[1]} ${bgColor.split(" ")[2]}, 20%) 0%, transparent 45%),
-              radial-gradient(circle at 30% 70%, hsl(${(parseInt(bgColor.split(" ")[0]) - 20) % 360} ${bgColor.split(" ")[1]} ${bgColor.split(" ")[2]}, 16%) 0%, transparent 50%)
+              radial-gradient(circle at 60% 40%, hsl(${(bgHue + 30) % 360}, ${bgSat}, 20%) 0%, transparent 45%),
+              radial-gradient(circle at 30% 70%, hsl(${(bgHue + 340) % 360}, ${bgSat}, 16%) 0%, transparent 50%)
             `,
           }}
         />
@@ -232,12 +233,7 @@ export default function Home() {
                     </span>
                   </span>
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  {clock.datePart}
-                </div>
-                <div className="font-mono text-xs text-muted-foreground [font-feature-settings:'tnum']">
-                  {clock.timePart}
-                </div>
+                <RealtimeClock timeZone={activeCity.timezone} />
               </div>
             </div>
           )}

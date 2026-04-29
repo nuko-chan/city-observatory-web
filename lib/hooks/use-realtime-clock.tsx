@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
-export function useRealtimeClock(timeZone: string) {
+function useRealtimeClock(timeZone: string) {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -38,3 +38,21 @@ export function useRealtimeClock(timeZone: string) {
 
   return { datePart, timePart };
 }
+
+// Isolate 1-second re-renders to this component only
+export const RealtimeClock = memo(function RealtimeClock({
+  timeZone,
+}: {
+  timeZone: string;
+}) {
+  const clock = useRealtimeClock(timeZone);
+
+  return (
+    <>
+      <div className="text-sm text-muted-foreground">{clock.datePart}</div>
+      <div className="font-mono text-xs text-muted-foreground [font-feature-settings:'tnum']">
+        {clock.timePart}
+      </div>
+    </>
+  );
+});

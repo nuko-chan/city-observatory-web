@@ -55,6 +55,8 @@ export function ComfortSummaryCard({
     );
   }
 
+  const pmColor = pm25Color(pm25);
+
   return (
     <div>
       <div className="flex items-start justify-between gap-4">
@@ -97,8 +99,8 @@ export function ComfortSummaryCard({
         <span
           className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-xs font-medium [font-feature-settings:'tnum']"
           style={{
-            backgroundColor: `color-mix(in oklch, ${pm25Color(pm25)} 15%, transparent)`,
-            color: pm25Color(pm25),
+            backgroundColor: `color-mix(in oklch, ${pmColor} 15%, transparent)`,
+            color: pmColor,
           }}
         >
           {pm25.toFixed(1)} µg/m³

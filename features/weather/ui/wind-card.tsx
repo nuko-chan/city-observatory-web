@@ -34,6 +34,8 @@ export function WindCard({
     );
   }
 
+  const speedColor = windSpeedColor(windSpeed);
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -43,8 +45,8 @@ export function WindCard({
         <span
           className="rounded-full px-2 py-0.5 text-xs font-medium uppercase tracking-[0.2px]"
           style={{
-            backgroundColor: `color-mix(in oklch, ${windSpeedColor(windSpeed)} 15%, transparent)`,
-            color: windSpeedColor(windSpeed),
+            backgroundColor: `color-mix(in oklch, ${speedColor} 15%, transparent)`,
+            color: speedColor,
           }}
         >
           {directionLabel}
