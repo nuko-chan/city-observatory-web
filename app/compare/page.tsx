@@ -17,7 +17,11 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { getAirQualitySeries } from "@/lib/domain/air-quality-series";
 import { cities } from "@/lib/constants/cities";
 import { cn } from "@/lib/utils";
-import { formatLocalTime, temperatureToColor } from "@/lib/utils/formatting";
+import {
+  formatLocalTime,
+  temperatureHsl,
+  temperatureToColor,
+} from "@/lib/utils/formatting";
 
 const defaultLeftCityId = cities[0].id;
 const defaultRightCityId = cities[1].id;
@@ -84,9 +88,9 @@ export default function ComparePage() {
           className="absolute left-0 top-0 h-full w-1/2 opacity-50 transition-all duration-1000"
           style={{
             background: `
-              radial-gradient(circle at 15% 20%, hsl(${leftBgColor}, 28%) 0%, transparent 45%),
-              radial-gradient(circle at 35% 65%, hsl(${leftBgColor}, 22%) 0%, transparent 50%),
-              radial-gradient(ellipse at 10% 80%, hsl(${leftBgColor}, 18%) 0%, transparent 55%)
+              radial-gradient(circle at 15% 20%, ${temperatureHsl(leftBgColor, "28%")} 0%, transparent 45%),
+              radial-gradient(circle at 35% 65%, ${temperatureHsl(leftBgColor, "22%")} 0%, transparent 50%),
+              radial-gradient(ellipse at 10% 80%, ${temperatureHsl(leftBgColor, "18%")} 0%, transparent 55%)
             `,
           }}
         />
@@ -94,7 +98,7 @@ export default function ComparePage() {
           className="absolute left-0 top-0 h-full w-1/2 opacity-30 transition-all duration-1000"
           style={{
             background: `
-              radial-gradient(circle at 25% 45%, hsl(${(parseInt(leftBgColor.split(" ")[0]) + 25) % 360} ${leftBgColor.split(" ")[1]} ${leftBgColor.split(" ")[2]}, 20%) 0%, transparent 42%)
+              radial-gradient(circle at 25% 45%, ${temperatureHsl({ ...leftBgColor, hue: (leftBgColor.hue + 25) % 360 }, "20%")} 0%, transparent 42%)
             `,
           }}
         />
@@ -104,9 +108,9 @@ export default function ComparePage() {
           className="absolute right-0 top-0 h-full w-1/2 opacity-50 transition-all duration-1000"
           style={{
             background: `
-              radial-gradient(circle at 85% 20%, hsl(${rightBgColor}, 28%) 0%, transparent 45%),
-              radial-gradient(circle at 65% 65%, hsl(${rightBgColor}, 22%) 0%, transparent 50%),
-              radial-gradient(ellipse at 90% 80%, hsl(${rightBgColor}, 18%) 0%, transparent 55%)
+              radial-gradient(circle at 85% 20%, ${temperatureHsl(rightBgColor, "28%")} 0%, transparent 45%),
+              radial-gradient(circle at 65% 65%, ${temperatureHsl(rightBgColor, "22%")} 0%, transparent 50%),
+              radial-gradient(ellipse at 90% 80%, ${temperatureHsl(rightBgColor, "18%")} 0%, transparent 55%)
             `,
           }}
         />
@@ -114,7 +118,7 @@ export default function ComparePage() {
           className="absolute right-0 top-0 h-full w-1/2 opacity-30 transition-all duration-1000"
           style={{
             background: `
-              radial-gradient(circle at 75% 45%, hsl(${(parseInt(rightBgColor.split(" ")[0]) + 25) % 360} ${rightBgColor.split(" ")[1]} ${rightBgColor.split(" ")[2]}, 20%) 0%, transparent 42%)
+              radial-gradient(circle at 75% 45%, ${temperatureHsl({ ...rightBgColor, hue: (rightBgColor.hue + 25) % 360 }, "20%")} 0%, transparent 42%)
             `,
           }}
         />
@@ -123,7 +127,7 @@ export default function ComparePage() {
         <div
           className="absolute left-1/2 top-0 h-full w-1/3 -translate-x-1/2 opacity-20 blur-3xl transition-all duration-1000"
           style={{
-            background: `linear-gradient(135deg, hsl(${leftBgColor}, 18%), hsl(${rightBgColor}, 18%))`,
+            background: `linear-gradient(135deg, ${temperatureHsl(leftBgColor, "18%")}, ${temperatureHsl(rightBgColor, "18%")})`,
           }}
         />
 

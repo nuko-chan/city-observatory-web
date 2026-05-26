@@ -39,7 +39,6 @@ function useRealtimeClock(timeZone: string) {
   return { datePart, timePart };
 }
 
-// Isolate 1-second re-renders to this component only
 export const RealtimeClock = memo(function RealtimeClock({
   timeZone,
 }: {
