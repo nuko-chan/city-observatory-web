@@ -70,7 +70,7 @@ city-observatory-web/
 ├── features/                     # 機能単位（FSD）
 │   ├── air-quality/
 │   │   ├── model/use-air-quality-data.ts
-│   │   └── ui/aq-card.tsx, aq-chart.tsx, aq-chart-client.tsx
+│   │   └── ui/aq-chart.tsx, aq-chart-client.tsx
 │   ├── city-search/
 │   │   ├── model/use-city-search.ts
 │   │   └── ui/city-search-input.tsx, city-suggestions.tsx
@@ -84,7 +84,10 @@ city-observatory-web/
 │           uv-card.tsx, wind-card.tsx, weather-icon.tsx
 │
 ├── components/                   # 共有 UI
-│   ├── ui/button.tsx             # shadcn/ui
+│   ├── layout/                   # chart-tabs.tsx, hero-section.tsx, site-footer.tsx
+│   ├── ui/                       # button.tsx（shadcn/ui）, glass-card.tsx,
+│   │                             # mesh-gradient-background.tsx, realtime-clock.tsx,
+│   │                             # external-link.tsx
 │   └── theme-provider.tsx
 │
 ├── lib/                          # 共有ロジック
@@ -189,5 +192,5 @@ city-observatory-web/
 
 ---
 
-**最終更新**: 2026-04-28
-**バージョン**: 2.0
+**最終更新**: 2026-09-02
+**バージョン**: 2.1
