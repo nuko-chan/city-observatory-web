@@ -1,6 +1,7 @@
 # City Observatory
 
-日本の主要6都市の天気情報を可視化しビジュアルで表現するWebアプリケーションです。
+日本の主要6都市の天気と大気質を1画面で可視化する Web アプリケーション。
+数値を並べるのではなく、地図・時系列グラフ・派生指標を1画面に収めて、都市の状態を一目で読み取れることを設計の軸に置いている。
 
 ![City Observatory サンプル](public/sample.png)
 
@@ -41,7 +42,7 @@
 - **TanStack Query**（データ取得）/ **Jotai**（グローバル状態）
 - **Vitest**（ユニットテスト）/ ESLint / Prettier / Husky
 
-依存の全量とアーキテクチャは[技術仕様書](docs/technical-specifications.md)、利用している外部 API の詳細は[API 仕様書](docs/api-specifications.md)にあります。
+依存の全量とアーキテクチャは[技術仕様書](docs/technical-specifications.md)、利用している外部 API の詳細は[API 仕様書](docs/api-specifications.md)にある。
 
 ## 📦 開発環境のセットアップ
 
@@ -71,7 +72,7 @@ cp .env.example .env.local
 pnpm dev
 ```
 
-http://localhost:3000 でアプリケーションが起動します。
+http://localhost:3000 でアプリケーションが起動する。
 
 ### その他のコマンド
 
