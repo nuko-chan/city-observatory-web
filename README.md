@@ -114,13 +114,11 @@ NEXT_PUBLIC_MAPTILER_KEY=your_maptiler_api_key
 # OpenWeather API Key (https://openweathermap.org/)
 NEXT_PUBLIC_OPENWEATHER_KEY=your_openweather_api_key
 
-# 地図スタイル（日本語対応）
+# 地図スタイル（日本語対応。未設定だと地図は表示されません）
 NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/jp-mierune-streets/style.json
-NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/jp-mierune-dark/style.json
 
-# デフォルト設定
+# デフォルト設定（省略時は tokyo）
 NEXT_PUBLIC_DEFAULT_CITY=tokyo
-NEXT_PUBLIC_FEATURE_MAP=true
 ```
 
 ## 📁 プロジェクト構造

@@ -132,11 +132,10 @@ city-observatory-web/
 
 ### 任意
 
-| 変数名                        | 用途                         | デフォルト      |
-| ----------------------------- | ---------------------------- | --------------- |
-| `NEXT_PUBLIC_MAP_STYLE_LIGHT` | ライトモード地図スタイル URL | streets-v2      |
-| `NEXT_PUBLIC_MAP_STYLE_DARK`  | ダークモード地図スタイル URL | streets-v2-dark |
-| `NEXT_PUBLIC_DEFAULT_CITY`    | 既定都市                     | tokyo           |
+| 変数名                        | 用途             | デフォルト                         |
+| ----------------------------- | ---------------- | ---------------------------------- |
+| `NEXT_PUBLIC_MAP_STYLE_LIGHT` | 地図スタイル URL | なし（未設定だと地図を描画しない） |
+| `NEXT_PUBLIC_DEFAULT_CITY`    | 既定都市         | tokyo                              |
 
 環境変数は `lib/env.ts` で Zod バリデーション済み。`.env.local` にセット（`.env.example` を参照）。
 
