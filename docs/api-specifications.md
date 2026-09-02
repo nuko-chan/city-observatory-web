@@ -119,10 +119,9 @@
 
 ### スタイル URL
 
-| スタイル      | URL                                                                  |
-| ------------- | -------------------------------------------------------------------- |
-| Streets Light | `https://api.maptiler.com/maps/streets-v2/style.json?key={KEY}`      |
-| Streets Dark  | `https://api.maptiler.com/maps/streets-v2-dark/style.json?key={KEY}` |
+| スタイル                  | URL                                                                     |
+| ------------------------- | ----------------------------------------------------------------------- |
+| MIERUNE Streets（日本語） | `https://api.maptiler.com/maps/jp-mierune-streets/style.json?key={KEY}` |
 
 ### API キー保護
 
