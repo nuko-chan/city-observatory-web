@@ -1,5 +1,7 @@
 # City Observatory - API 仕様書
 
+[← README に戻る](../README.md)
+
 外部 API のエンドポイント・パラメータ・レスポンス形式のリファレンス。
 
 実装コードは `lib/api/`, `lib/validators/` を参照。
@@ -94,7 +96,7 @@
 
 ### PM2.5 簡易分類（設計判断）
 
-厳密な AQI は採用せず、PM2.5 ベースの簡易ラベルで運用（ポートフォリオ用途のため）。
+厳密な AQI は採用せず、PM2.5 ベースの簡易ラベルで運用（利用者が一目で判断できることを優先）。
 
 | PM2.5（μg/m³） | ラベル | 表示 |
 | -------------- | ------ | ---- |
@@ -117,10 +119,9 @@
 
 ### スタイル URL
 
-| スタイル      | URL                                                                  |
-| ------------- | -------------------------------------------------------------------- |
-| Streets Light | `https://api.maptiler.com/maps/streets-v2/style.json?key={KEY}`      |
-| Streets Dark  | `https://api.maptiler.com/maps/streets-v2-dark/style.json?key={KEY}` |
+| スタイル                  | URL                                                                     |
+| ------------------------- | ----------------------------------------------------------------------- |
+| MIERUNE Streets（日本語） | `https://api.maptiler.com/maps/jp-mierune-streets/style.json?key={KEY}` |
 
 ### API キー保護
 
@@ -158,5 +159,5 @@ MapTiler Dashboard で **Allowed HTTP Origins** を設定:
 
 ---
 
-**最終更新**: 2026-04-28
-**バージョン**: 2.0
+**最終更新**: 2026-09-02
+**バージョン**: 2.1

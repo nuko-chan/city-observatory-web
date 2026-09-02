@@ -1,5 +1,7 @@
 # City Observatory - 技術仕様書
 
+[← README に戻る](../README.md)
+
 ## 1. 技術スタック
 
 ### 1.1 コア
@@ -7,7 +9,7 @@
 | カテゴリ             | 技術                    | 用途                     |
 | -------------------- | ----------------------- | ------------------------ |
 | フレームワーク       | Next.js 16 (App Router) | React フレームワーク     |
-| 言語                 | TypeScript 5 (strict)   | 型安全な開発             |
+| 言語                 | TypeScript 6 (strict)   | 型安全な開発             |
 | UI                   | React 19                | ユーザーインターフェース |
 | パッケージマネージャ | pnpm                    | 依存関係管理             |
 
@@ -48,7 +50,6 @@
 | Husky       | Git hooks                          |
 | lint-staged | ステージ済みファイルの自動チェック |
 | Vitest      | ユニットテスト                     |
-| Playwright  | E2E テスト                         |
 
 ---
 
@@ -57,21 +58,19 @@
 ### 2.1 構成方針（Feature-Sliced Design）
 
 ```
-city-observatory/
+city-observatory-web/
 ├── app/                          # Next.js App Router
 │   ├── layout.tsx                # ルートレイアウト（Geist fonts, providers）
 │   ├── page.tsx                  # メインダッシュボード
 │   ├── providers.tsx             # TanStack Query + Jotai + Theme
 │   ├── globals.css               # Tailwind v4 + テーマ変数（OKLCH）
 │   ├── not-found.tsx
-│   ├── landing-page.tsx
-│   ├── about/page.tsx
 │   └── compare/page.tsx
 │
 ├── features/                     # 機能単位（FSD）
 │   ├── air-quality/
 │   │   ├── model/use-air-quality-data.ts
-│   │   └── ui/aq-card.tsx, aq-chart.tsx, aq-chart-client.tsx
+│   │   └── ui/aq-chart.tsx, aq-chart-client.tsx
 │   ├── city-search/
 │   │   ├── model/use-city-search.ts
 │   │   └── ui/city-search-input.tsx, city-suggestions.tsx
@@ -85,7 +84,10 @@ city-observatory/
 │           uv-card.tsx, wind-card.tsx, weather-icon.tsx
 │
 ├── components/                   # 共有 UI
-│   ├── ui/button.tsx             # shadcn/ui
+│   ├── layout/                   # chart-tabs.tsx, hero-section.tsx, site-footer.tsx
+│   ├── ui/                       # button.tsx（shadcn/ui）, glass-card.tsx,
+│   │                             # mesh-gradient-background.tsx, realtime-clock.tsx,
+│   │                             # external-link.tsx
 │   └── theme-provider.tsx
 │
 ├── lib/                          # 共有ロジック
@@ -133,11 +135,10 @@ city-observatory/
 
 ### 任意
 
-| 変数名                        | 用途                         | デフォルト      |
-| ----------------------------- | ---------------------------- | --------------- |
-| `NEXT_PUBLIC_MAP_STYLE_LIGHT` | ライトモード地図スタイル URL | streets-v2      |
-| `NEXT_PUBLIC_MAP_STYLE_DARK`  | ダークモード地図スタイル URL | streets-v2-dark |
-| `NEXT_PUBLIC_DEFAULT_CITY`    | 既定都市                     | tokyo           |
+| 変数名                        | 用途             | デフォルト                         |
+| ----------------------------- | ---------------- | ---------------------------------- |
+| `NEXT_PUBLIC_MAP_STYLE_LIGHT` | 地図スタイル URL | なし（未設定だと地図を描画しない） |
+| `NEXT_PUBLIC_DEFAULT_CITY`    | 既定都市         | tokyo                              |
 
 環境変数は `lib/env.ts` で Zod バリデーション済み。`.env.local` にセット（`.env.example` を参照）。
 
@@ -191,5 +192,5 @@ city-observatory/
 
 ---
 
-**最終更新**: 2026-04-28
-**バージョン**: 2.0
+**最終更新**: 2026-09-02
+**バージョン**: 2.1

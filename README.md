@@ -23,12 +23,6 @@
 - 位置関係を示す地図
 - データドリブンな背景（2都市の気温が混ざり合うグラデーション）
 
-### 3. Aboutページ (`/about`)
-
-- 私のプロフィール
-- 技術スタック
-- 連絡先情報
-
 ## 🚀 主要機能
 
 - ✅ 6都市（東京/大阪/名古屋/札幌/福岡/那覇）の切り替え
@@ -41,44 +35,27 @@
 
 ## 🛠 技術スタック
 
-### フロントエンド
+- **Next.js 16**（App Router）+ **React 19** + **TypeScript**
+- **Tailwind CSS v4** + **shadcn/ui**（New York スタイル）
+- **MapLibre GL**（地図）/ **Recharts**（グラフ）
+- **TanStack Query**（データ取得）/ **Jotai**（グローバル状態）
+- **Vitest**（ユニットテスト）/ ESLint / Prettier / Husky
 
-- **Next.js 16** (App Router)
-- **React 19**
-- **TypeScript**
-- **Tailwind CSS v4**
-- **shadcn/ui** (New York スタイル)
-
-### データ可視化
-
-- **Recharts** - 折れ線グラフ
-- **MapLibre GL** - 地図表示
-
-### データソース
-
-- **Open-Meteo API** - 天気データ
-- **Open-Meteo Air Quality API** - 大気質データ
-- **MapTiler + MIERUNE** - 日本語地図スタイル
-- **OpenWeather** - 降水レイヤー
-
-### 状態管理
-
-- **TanStack Query (React Query)** - データフェッチング
-- **Jotai** - グローバル状態管理
+依存の全量とアーキテクチャは[技術仕様書](docs/technical-specifications.md)、利用している外部 API の詳細は[API 仕様書](docs/api-specifications.md)にあります。
 
 ## 📦 開発環境のセットアップ
 
 ### 前提条件
 
-- Node.js 18以上
+- Node.js 20.9以上（Next.js 16 の要件）
 - pnpm 10以上
 
 ### インストール
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/your-username/city-observatory.git
-cd city-observatory
+git clone https://github.com/nemonsoon/city-observatory-web.git
+cd city-observatory-web
 
 # 依存関係をインストール
 pnpm install
@@ -99,10 +76,14 @@ http://localhost:3000 でアプリケーションが起動します。
 ### その他のコマンド
 
 ```bash
-pnpm build      # プロダクションビルド
-pnpm start      # プロダクションサーバー起動
-pnpm lint       # ESLint実行
-pnpm typecheck  # 型チェック
+pnpm build       # プロダクションビルド
+pnpm start       # プロダクションサーバー起動
+pnpm test        # Vitestでユニットテストを実行
+pnpm typecheck   # 型チェック
+pnpm lint        # ESLint実行
+pnpm lint:fix    # ESLintの自動修正
+pnpm format      # Prettierの書式チェック
+pnpm format:fix  # Prettierの自動整形
 ```
 
 ## 🔑 環境変数
@@ -116,23 +97,20 @@ NEXT_PUBLIC_MAPTILER_KEY=your_maptiler_api_key
 # OpenWeather API Key (https://openweathermap.org/)
 NEXT_PUBLIC_OPENWEATHER_KEY=your_openweather_api_key
 
-# 地図スタイル（日本語対応）
+# 地図スタイル（日本語対応。未設定だと地図は表示されません）
 NEXT_PUBLIC_MAP_STYLE_LIGHT=https://api.maptiler.com/maps/jp-mierune-streets/style.json
-NEXT_PUBLIC_MAP_STYLE_DARK=https://api.maptiler.com/maps/jp-mierune-dark/style.json
 
-# デフォルト設定
+# デフォルト設定（省略時は tokyo）
 NEXT_PUBLIC_DEFAULT_CITY=tokyo
-NEXT_PUBLIC_FEATURE_MAP=true
 ```
 
 ## 📁 プロジェクト構造
 
 ```
-city-observatory/
+city-observatory-web/
 ├── app/                    # Next.js App Router
 │   ├── page.tsx           # トップページ
-│   ├── compare/           # 比較ページ
-│   └── about/             # プロフィールページ
+│   └── compare/           # 比較ページ
 ├── features/              # 機能別コンポーネント
 │   ├── weather/          # 天気関連
 │   ├── air-quality/      # 大気質関連
@@ -145,10 +123,12 @@ city-observatory/
 
 ## 📚 ドキュメント
 
-- `docs/requirements.md` - 要件定義
-- `docs/technical-specifications.md` - 技術仕様
-- `docs/coding-guidelines.md` - コーディング規約
-- `CLAUDE.md` - AI開発ガイドライン
+- [要件定義書](docs/requirements.md) - 機能要件・非機能要件・スコープ外。何を作ったのか全体像から知りたいときに最初に読む
+- [技術仕様書](docs/technical-specifications.md) - 技術スタック・アーキテクチャ・環境変数・デプロイ。動かす前や構成を変えるときに読む
+- [API 仕様書](docs/api-specifications.md) - 利用している外部 API の呼び出し方とエラーハンドリング方針。データ取得まわりを触るときに読む
+- [デザインシステム](DESIGN.md) - 色・タイポグラフィ・コンポーネント・モーションの規約。画面を作る・直すときに読む
+- [コーディング規約](docs/coding-guidelines.md) - TypeScript・React・命名の約束事。コードを書く前に読む
+- [拡張機能仕様書](docs/enhancement-specifications.md) - 実装済み機能の詳細と未実装の拡張候補。どこまでできているか知りたいときに読む
 
 ## 🔄 開発フロー（Issue駆動）
 

@@ -1,5 +1,7 @@
 # Coding Guidelines
 
+[← README に戻る](../README.md)
+
 ## TypeScript
 
 - Type definitions must use `type`, not `interface`.
