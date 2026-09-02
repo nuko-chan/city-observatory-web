@@ -23,12 +23,6 @@
 - 位置関係を示す地図
 - データドリブンな背景（2都市の気温が混ざり合うグラデーション）
 
-### 3. Aboutページ (`/about`)
-
-- 私のプロフィール
-- 技術スタック
-- 連絡先情報
-
 ## 🚀 主要機能
 
 - ✅ 6都市（東京/大阪/名古屋/札幌/福岡/那覇）の切り替え
@@ -70,15 +64,15 @@
 
 ### 前提条件
 
-- Node.js 18以上
+- Node.js 20.9以上（Next.js 16 の要件）
 - pnpm 10以上
 
 ### インストール
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/your-username/city-observatory.git
-cd city-observatory
+git clone https://github.com/nemonsoon/city-observatory-web.git
+cd city-observatory-web
 
 # 依存関係をインストール
 pnpm install
@@ -99,10 +93,14 @@ http://localhost:3000 でアプリケーションが起動します。
 ### その他のコマンド
 
 ```bash
-pnpm build      # プロダクションビルド
-pnpm start      # プロダクションサーバー起動
-pnpm lint       # ESLint実行
-pnpm typecheck  # 型チェック
+pnpm build       # プロダクションビルド
+pnpm start       # プロダクションサーバー起動
+pnpm test        # Vitestでユニットテストを実行
+pnpm typecheck   # 型チェック
+pnpm lint        # ESLint実行
+pnpm lint:fix    # ESLintの自動修正
+pnpm format      # Prettierの書式チェック
+pnpm format:fix  # Prettierの自動整形
 ```
 
 ## 🔑 環境変数
@@ -128,11 +126,10 @@ NEXT_PUBLIC_FEATURE_MAP=true
 ## 📁 プロジェクト構造
 
 ```
-city-observatory/
+city-observatory-web/
 ├── app/                    # Next.js App Router
 │   ├── page.tsx           # トップページ
-│   ├── compare/           # 比較ページ
-│   └── about/             # プロフィールページ
+│   └── compare/           # 比較ページ
 ├── features/              # 機能別コンポーネント
 │   ├── weather/          # 天気関連
 │   ├── air-quality/      # 大気質関連
