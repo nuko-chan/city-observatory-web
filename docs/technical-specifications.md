@@ -1,5 +1,7 @@
 # City Observatory - 技術仕様書
 
+[← README に戻る](../README.md)
+
 ## 1. 技術スタック
 
 ### 1.1 コア

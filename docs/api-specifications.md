@@ -1,5 +1,7 @@
 # City Observatory - API 仕様書
 
+[← README に戻る](../README.md)
+
 外部 API のエンドポイント・パラメータ・レスポンス形式のリファレンス。
 
 実装コードは `lib/api/`, `lib/validators/` を参照。

@@ -1,5 +1,7 @@
 # City Observatory - 拡張機能仕様書
 
+[← README に戻る](../README.md)
+
 ## 1. 概要
 
 ### 1.1 目的

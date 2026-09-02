@@ -142,10 +142,12 @@ city-observatory-web/
 
 ## 📚 ドキュメント
 
-- `docs/requirements.md` - 要件定義
-- `docs/technical-specifications.md` - 技術仕様
-- `docs/coding-guidelines.md` - コーディング規約
-- `CLAUDE.md` - AI開発ガイドライン
+- [要件定義書](docs/requirements.md) - 機能要件・非機能要件・スコープ外。何を作ったのか全体像から知りたいときに最初に読む
+- [技術仕様書](docs/technical-specifications.md) - 技術スタック・アーキテクチャ・環境変数・デプロイ。動かす前や構成を変えるときに読む
+- [API 仕様書](docs/api-specifications.md) - 利用している外部 API の呼び出し方とエラーハンドリング方針。データ取得まわりを触るときに読む
+- [デザインシステム](DESIGN.md) - 色・タイポグラフィ・コンポーネント・モーションの規約。画面を作る・直すときに読む
+- [コーディング規約](docs/coding-guidelines.md) - TypeScript・React・命名の約束事。コードを書く前に読む
+- [拡張機能仕様書](docs/enhancement-specifications.md) - 実装済み機能の詳細と未実装の拡張候補。どこまでできているか知りたいときに読む
 
 ## 🔄 開発フロー（Issue駆動）
 
