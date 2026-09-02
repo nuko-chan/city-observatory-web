@@ -35,30 +35,13 @@
 
 ## 🛠 技術スタック
 
-### フロントエンド
+- **Next.js 16**（App Router）+ **React 19** + **TypeScript**
+- **Tailwind CSS v4** + **shadcn/ui**（New York スタイル）
+- **MapLibre GL**（地図）/ **Recharts**（グラフ）
+- **TanStack Query**（データ取得）/ **Jotai**（グローバル状態）
+- **Vitest**（ユニットテスト）/ ESLint / Prettier / Husky
 
-- **Next.js 16** (App Router)
-- **React 19**
-- **TypeScript**
-- **Tailwind CSS v4**
-- **shadcn/ui** (New York スタイル)
-
-### データ可視化
-
-- **Recharts** - 折れ線グラフ
-- **MapLibre GL** - 地図表示
-
-### データソース
-
-- **Open-Meteo API** - 天気データ
-- **Open-Meteo Air Quality API** - 大気質データ
-- **MapTiler + MIERUNE** - 日本語地図スタイル
-- **OpenWeather** - 降水レイヤー
-
-### 状態管理
-
-- **TanStack Query (React Query)** - データフェッチング
-- **Jotai** - グローバル状態管理
+依存の全量とアーキテクチャは[技術仕様書](docs/technical-specifications.md)、利用している外部 API の詳細は[API 仕様書](docs/api-specifications.md)にあります。
 
 ## 📦 開発環境のセットアップ
 
