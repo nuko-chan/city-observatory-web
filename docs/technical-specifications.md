@@ -9,7 +9,7 @@
 | カテゴリ             | 技術                    | 用途                     |
 | -------------------- | ----------------------- | ------------------------ |
 | フレームワーク       | Next.js 16 (App Router) | React フレームワーク     |
-| 言語                 | TypeScript 5 (strict)   | 型安全な開発             |
+| 言語                 | TypeScript 6 (strict)   | 型安全な開発             |
 | UI                   | React 19                | ユーザーインターフェース |
 | パッケージマネージャ | pnpm                    | 依存関係管理             |
 
@@ -50,7 +50,6 @@
 | Husky       | Git hooks                          |
 | lint-staged | ステージ済みファイルの自動チェック |
 | Vitest      | ユニットテスト                     |
-| Playwright  | E2E テスト                         |
 
 ---
 
@@ -59,15 +58,13 @@
 ### 2.1 構成方針（Feature-Sliced Design）
 
 ```
-city-observatory/
+city-observatory-web/
 ├── app/                          # Next.js App Router
 │   ├── layout.tsx                # ルートレイアウト（Geist fonts, providers）
 │   ├── page.tsx                  # メインダッシュボード
 │   ├── providers.tsx             # TanStack Query + Jotai + Theme
 │   ├── globals.css               # Tailwind v4 + テーマ変数（OKLCH）
 │   ├── not-found.tsx
-│   ├── landing-page.tsx
-│   ├── about/page.tsx
 │   └── compare/page.tsx
 │
 ├── features/                     # 機能単位（FSD）
